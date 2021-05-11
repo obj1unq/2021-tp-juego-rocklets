@@ -1,0 +1,17 @@
+import wollok.game.*
+import Constructor.*
+import materiales.*
+import tableroDeJuego.*
+
+program juego {
+	game.title("Juego Bob el constructor")
+	game.height(10)
+	game.width(10)
+	game.boardGround("pasto.png")
+	game.cellSize(50)
+	game.addVisual(bob)
+	
+	nivelUnico.iniciar()
+	
+	game.start()
+}
