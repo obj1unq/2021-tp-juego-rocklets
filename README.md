@@ -8,6 +8,11 @@ El objetivo principal del juego es construir alguno de los siguientes objetos si
 Una XX. Se contruye con X piezas de madera, X piezas de piedras y X piezas de metal.
 Un XX. Se contruye con X piezas de madera, X piezas de piedras y X piezas de metal.
 
+Materiales para la construccion:
+<img src="assets/madera.png" height="50" width="50">
+<img src="assets/metal.png" height="50" width="50">
+<img src="assets/piedra.png" height="50" width="50">
+
 Bob, al igual que vos, puede estar cansado. Para que Bob pueda recuperar energia y seguir trabajando en recolectar o construir un objeto, tendra que ir a descansar a cualquier de los lugares de descanso disponibles. 
 Bob, tambien debe ser muy cuidadoso y ver donde pisa al caminar, nuestra constructor no sabe nadar!. Por lo tanto de caer al agua, morira ahogado. Tambien es alergico a los hongos, por lo que no debera pasar sobre ellos, o estos afectaran su salud y podran causar su muerte.
 
