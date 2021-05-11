@@ -1,4 +1,6 @@
-#Bob el constructor
+# Bob el constructor
+
+<img src="assets/bob.png" height="200" width="300">
 
 Bienvenido a "Bob el constructor". Este juega hara revivir su gusto por la creacion de objetos.
 El objetivo principal del juego es construir alguno de los siguientes objetos sin morir en el intento.
