@@ -1,9 +1,10 @@
 import wollok.game.*
+import materiales.*
 
 object bob {
 	
 	var property position = game.at(3, 3)
-	const materialesGuardados = []
+	const property materialesGuardados = []
 
 	method image() {
 		return "bob.png"
@@ -13,11 +14,20 @@ object bob {
 		position = nuevaPosicion
 	}
 	
-	method guardarMaterial(unMaterial){
+	method guardarMaterial(material){
+			materialesGuardados.add(material)
+	}
+	
+	method quitarMaterialDelCamino(){		
+			const material = game.uniqueCollider(self)
+			self.guardarMaterial(material)
+	    	game.removeVisual(material)
 		//Me guardo un material que encontre
 	}
 	
-	method gastarMaterial(unMaterial){
+	
+	method gastarMaterial(material){
+		materialesGuardados.remove(material)
 		/*Se gasta un material, pero hay que ver si materialesGuardados es un conjunto o una lista, a ver
 		si repetimos los materiales o tienen que ser todos distintos, o como hacemos.
 		La idea seria que se repitan supongo, para tener muchas piedras, muchas maderas
@@ -34,4 +44,5 @@ object bob {
 	}
 
 }
+
 

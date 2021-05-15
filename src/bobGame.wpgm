@@ -9,7 +9,7 @@ program juego {
 	game.width(10)
 	game.boardGround("pasto.png")
 	game.cellSize(50)
-	game.addVisual(bob)
+	
 	
 	nivelUnico.iniciar()
 	

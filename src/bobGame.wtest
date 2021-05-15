@@ -1,0 +1,22 @@
+import wollok.game.*
+import materiales.*
+import Constructor.*
+
+describe "Tests de Bob" {
+
+	fixture {
+		game.clear()
+		game.addVisual(bob)
+		game.addVisual(piedra)
+	}
+
+	test "Al agarrar un objeto se agrega a su coleccion" {
+		bob.guardarMaterial(piedra)
+		assert.equals([piedra], bob.materialesGuardados())
+	}
+
+}
+
+
+
+
