@@ -9,6 +9,8 @@ program juego {
 	game.width(15)
 	game.boardGround("fondo.png")
 	game.cellSize(50)
+	game.addVisual(hotel5e)
+	game.addVisual(casa)
 	
 	
 	nivelUnico.iniciar()

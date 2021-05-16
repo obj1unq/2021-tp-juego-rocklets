@@ -9,8 +9,6 @@ object nivelUnico {
 	game.addVisual(madera)
 	game.addVisual(piedra)
 	game.addVisual(bob)
-	game.addVisual(hotel5e)
-	game.addVisual(casa)
 	config.configurarTeclas()
 	
 	}
