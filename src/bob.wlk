@@ -1,9 +1,10 @@
 import wollok.game.*
-import materiales.*
+import materialesYExtras.*
 
 object bob {
 	
 	var property position = game.at(3, 3)
+	var property energia = 100
 	const property materialesGuardados = []
 
 	method image() {
@@ -15,15 +16,23 @@ object bob {
 	}
 	
 	method guardarMaterial(material){
-			materialesGuardados.add(material)
+		    self.validarSiEsMaterial(material)	
+			materialesGuardados.add(material.nombre())
 	}
 	
-	method quitarMaterialDelCamino(){		
+	method agarrarYQuitarMaterialDelCamino(){
 			const material = game.uniqueCollider(self)
 			self.guardarMaterial(material)
-	    	game.removeVisual(material)
+			game.removeVisual(material)
 		//Me guardo un material que encontre
 	}
+	
+	method validarSiEsMaterial(_material){
+		const imagenesDeMaterialesValidos = ["metal.png", "madera.png","piedra.png"]
+		if (not imagenesDeMaterialesValidos.contains(_material.image())){
+			self.error("no se puede guardar, no es un material ")
+		}
+	}	
 	
 	
 	method gastarMaterial(material){

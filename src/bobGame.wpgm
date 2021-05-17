@@ -1,6 +1,6 @@
 import wollok.game.*
-import Constructor.*
-import materiales.*
+import bob.*
+import materialesYExtras.*
 import tableroDeJuego.*
 
 program juego {
@@ -8,9 +8,10 @@ program juego {
 	game.height(12)
 	game.width(15)
 	game.boardGround("fondo.png")
-	game.cellSize(50)
+	game.cellSize(40)
 	game.addVisual(hotel5e)
 	game.addVisual(casa)
+	
 	
 	
 	nivelUnico.iniciar()
