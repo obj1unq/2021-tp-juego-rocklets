@@ -3,21 +3,19 @@ import materialesYExtras.*
 import bob.*
 
 describe "Tests de Bob" {
-
-	var piedra
-	var hongo 
+	
+	const piedra = new Piedra (position = game.center())
+ 
 	fixture {
 		game.clear()
 		game.addVisual(bob)
-		piedra = new Material (nombre="piedra",position=game.at(2, 4), image="piedra.png")
-		hongo = new Obstaculos (nombre="hongo", position=game.at(5, 5), image="hongo.png")
+		gestorDeMateriales.agregarMaterial(piedra)
+
 	}
 
 	test "Agarrar objeto si es material y agregarlo a la coleccion" {
 		bob.guardarMaterial(piedra)
-		assert.equals(["piedra"], bob.materialesGuardados())
-		assert.throwsException({bob.guardarMaterial(hongo)})
-		assert.equals(["piedra"], bob.materialesGuardados())
+		assert.equals([piedra], bob.materialesGuardados())
 	}
 	
 	

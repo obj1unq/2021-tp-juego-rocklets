@@ -16,24 +16,15 @@ object bob {
 	}
 	
 	method guardarMaterial(material){
-		    self.validarSiEsMaterial(material)	
-			materialesGuardados.add(material.nombre())
+			materialesGuardados.add(material)
 	}
 	
-	method agarrarYQuitarMaterialDelCamino(){
-			const material = game.uniqueCollider(self)
+	method agarrarYQuitarMaterialDelCamino(material){
 			self.guardarMaterial(material)
-			game.removeVisual(material)
+			gestorDeMateriales.removerMaterial(material)
 		//Me guardo un material que encontre
 	}
-	
-	method validarSiEsMaterial(_material){
-		const imagenesDeMaterialesValidos = ["metal.png", "madera.png","piedra.png"]
-		if (not imagenesDeMaterialesValidos.contains(_material.image())){
-			self.error("no se puede guardar, no es un material ")
-		}
-	}	
-	
+		
 	
 	method gastarMaterial(material){
 		materialesGuardados.remove(material)
@@ -43,6 +34,14 @@ object bob {
 		Pero hay que ver como se comporta la coleccion al querer borrar por ejemplo 5 maderas, y no todas las que tengo
 		*/
 	}
+	
+	method sumarEnergia(lugarDeDescanso){
+		energia += lugarDeDescanso.energiaQueAporta()
+	}
+	
+	method restarEnergia(lugarDeDescanso){
+		energia += lugarDeDescanso.energiaQueQuita()
+	} 
 	
 	method construir(unObjeto){
 		/*Construir un objeto

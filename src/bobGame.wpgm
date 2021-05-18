@@ -3,17 +3,14 @@ import bob.*
 import materialesYExtras.*
 import tableroDeJuego.*
 
+
 program juego {
 	game.title("Juego Bob el constructor")
 	game.height(12)
 	game.width(15)
 	game.boardGround("fondo.png")
 	game.cellSize(40)
-	game.addVisual(hotel5e)
-	game.addVisual(casa)
-	
-	
-	
+
 	nivelUnico.iniciar()
 	
 	game.start()
