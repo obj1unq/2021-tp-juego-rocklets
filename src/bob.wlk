@@ -48,8 +48,35 @@ object bob {
 		Al construir voy a tener mas cansancio y perder ciertos materiales
 		Hay que ver antes de construir si tengo suficiente energia, aca podemos lanzar excepcion si
 		la energia no alcanza
-		*/
+		*/ // Aca deberia validar, segun el objeto que es lo que requiere, osea que material necesito para construir "unObjeto" y ahi deberia descontar,.
+		
+		self.validarMateriasParaConstruir(unObjeto)
+		 //poner mesa 
+		
+		
+		
 	}
+
+	method validarMaterialesParaConstruir(unObjeto){
+		
+		if !(unObjeto.materialesNecesarios().contains.materialesGuardados()){
+			self.error("no tenes materiales")
+			
+		}
+		
+		
+	}
+
+	method contieneEn(list1,list2){
+		
+		
+		
+		
+		
+	}
+	
+	
+	
 
 }
 
