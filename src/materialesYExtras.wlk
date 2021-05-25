@@ -97,13 +97,4 @@ class Obstaculos {
 	}
 }
 
-class LugaresDeDescanso{
-	const property image = null 
-	const property position = null 
-	const property energiaQueAporta = null
-	
-	method teEncontro(elConstructor) {
-		elConstructor.sumarEnergia(self)
-	}
-}
 

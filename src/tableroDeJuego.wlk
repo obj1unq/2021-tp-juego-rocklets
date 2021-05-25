@@ -9,10 +9,9 @@ object nivelUnico {
 	
 	method iniciar(){
 	game.addVisual(bob)
-	game.addVisual(new LugaresDeDescanso (position=game.at(0,0), image="casa.png"))
-	game.addVisual(new LugaresDeDescanso (position=game.at(12,10), image="hotel5e.png"))
-	game.addVisual(fabrica)
+
 	config.configurarTeclas()
+	config.configurarEdificios()
 	config.configurarColisiones()
 	config.configurarMaterialesAleatorios() 
 	}
@@ -28,6 +27,13 @@ object config {
 		keyboard.up().onPressDo({ bob.irA(bob.position().up(1))})
 		keyboard.down().onPressDo({ bob.irA(bob.position().down(1))})
 		keyboard.m().onPressDo({bob.construir(mesa)})
+	}
+	
+	method configurarEdificios(){
+		game.addVisual(casa)
+		game.addVisual(hotelCincoEstrellas)
+		game.addVisual(hotelTresEstrellas)
+		game.addVisual(fabrica)
 	}
 	
 	method configurarColisiones() {

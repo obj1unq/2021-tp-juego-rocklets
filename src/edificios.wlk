@@ -3,38 +3,60 @@ import objetosConstruibles.*
 
 object fabrica {
 	
-	const property position = game.at(12, 3)
+	const property position = game.at(10, 3)
 	
 	method image() {return "fabrica.png"}	
 	
-	method teEncontro(elConstructor){
+	method teEncontro(unConstructor){
 		//Abrir pantalla  que de opciones 1.construir mesa 2.construir escritorio 3.........
-		elConstructor.contruir(mesa)
+		unConstructor.construir(mesa)
 	}
 	
 }
 
 object hotelTresEstrellas {
+	const property position = game.at(4, 2)
+		
+	method image() {return "hotel3e.png"}
 	
-	//recupera algo de energia
-	
-	method descansar(){
-		//TODO	
+	method energiaQueAporta(){
+		return 30
+	}
+
+	method teEncontro(unConstructor){
+		unConstructor.sumarEnergia(self)
+		game.say(hotelTresEstrellas,"Recuperando energia...")
 	}
 }
 
 object hotelCincoEstrellas {
 	
-	//recupera mucha energia (mas que la que recupera en el hotel de 3 estrellas)
-	method descansar(){
-		//TODO	
+	const property position = game.at(1, 9)
+	
+	method image() {return "hotel5e.png"}
+	
+	method energiaQueAporta(){
+		return 50
+	}
+
+	method teEncontro(unConstructor){
+		unConstructor.sumarEnergia(self)
+		game.say(hotelTresEstrellas,"Recuperando energia...")
 	}
 }
 
 object casa {
 	
-	//recupera toda la energia, porque no hay como dormir en casa (?)
-	method descansar(){
-		//TODO	
+	const property position = game.at(0, 1)
+	
+	method image() {return "casa.png"}
+	
+	method energiaQueAporta(){
+		return 100
+	}
+
+	method teEncontro(unConstructor){
+		unConstructor.sumarEnergia(self)
+		game.say(hotelTresEstrellas,"Recuperando energia...")
 	}
 }

@@ -38,6 +38,7 @@ object mesa{
 	}
 	method teEncontro(unConstructor){
 		//nada, la mesa se va a guardar en un lugar aparte, luego esto se borra, pero por ahora lo necesitamos
+		//podria ser, guardarme la mesa tambien
 	}
 }
 /* 
