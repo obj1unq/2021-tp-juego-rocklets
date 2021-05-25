@@ -39,45 +39,32 @@ object bob {
 		energia += lugarDeDescanso.energiaQueAporta()
 	}
 	
-	method restarEnergia(lugarDeDescanso){
-		energia += lugarDeDescanso.energiaQueQuita()
+	method restarEnergia(obstaculo){
+		energia -= obstaculo.energiaQueQuita()
 	} 
 	
 	method construir(unObjeto){
+		self.validarSiPuedeConstruirse(unObjeto)
+		game.addVisual(unObjeto)
+		unObjeto.materialesNecesarios().forEach({material=> self.gastarMaterial(material)}) 
 		/*Construir un objeto
 		Al construir voy a tener mas cansancio y perder ciertos materiales
 		Hay que ver antes de construir si tengo suficiente energia, aca podemos lanzar excepcion si
 		la energia no alcanza
-		*/ // Aca deberia validar, segun el objeto que es lo que requiere, osea que material necesito para construir "unObjeto" y ahi deberia descontar,.
-		
-		self.validarMateriasParaConstruir(unObjeto)
-		 //poner mesa 
-		
-		
-		
-	}
-
-	method validarMaterialesParaConstruir(unObjeto){
-		
-		if !(unObjeto.materialesNecesarios().contains.materialesGuardados()){
-			self.error("no tenes materiales")
-			
+		*/
+	
 		}
+			
+    method validarSiPuedeConstruirse(unObjeto){
+    	if (not unObjeto.puedeConstruirse()) {
+			self.error("No puedo construirlo, no tengo los materiales necesarios")
+		}
+    }
 		
-		
-	}
 
-	method contieneEn(list1,list2){
-		
-		
-		
-		
-		
-	}
-	
-	
-	
 
+   
+   
 }
 
 
