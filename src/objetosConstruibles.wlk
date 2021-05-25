@@ -1,8 +1,10 @@
 import materialesYExtras.*
+import bob.*
 
 object mesa{
 	
 	const property image = "mesa.png"
+	const property position = bob.position()
 	method maderaNecesaria(){
 		//se necesitan 5 unidades de madera para construir la mesa
 		return 5
@@ -34,7 +36,9 @@ object mesa{
 			cantidadDeMetalRecogida  >= self.metalNecesario())
 		
 	}
-	
+	method teEncontro(unConstructor){
+		//nada, la mesa se va a guardar en un lugar aparte, luego esto se borra, pero por ahora lo necesitamos
+	}
 }
 /* 
 object silla{

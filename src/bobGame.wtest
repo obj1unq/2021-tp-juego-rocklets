@@ -1,6 +1,7 @@
 import wollok.game.*
 import materialesYExtras.*
 import bob.*
+import objetosConstruibles.*
 
 //describe "Tests de Bob" {
 // 
@@ -29,12 +30,22 @@ import bob.*
 		bob.gastarMaterial(unaPiedra)
 		assert.equals(0,bob.materialesGuardados().size())
 	}
-	//test "Armar mesa solo si tengo los materiales necesarios"{
-		//bob.guardarMaterial(piedra)
-	//	assert.throwsExceptionWithMessage("No puedo construirlo, no tengo los materiales necesarios", { bob.construir(mesa) })
-	//	bob.guardarMaterial(madera)
-	//	assert.that(mesa.puedeConstruirse())
-	//}
+	
+	test "No se puede construir una mesa si no se tienen los materiales necesarios" {
+		assert.throwsExceptionWithMessage("No tengo los materiales necesarios",{bob.construir(mesa)})
+	}
+	
+	test "No se puede construir una mesa si el constructor no tiene la energia necesaria" {
+		bob.guardarMaterial(new Madera(position = game.center()))
+		bob.guardarMaterial(new Madera(position = game.center()))
+		bob.guardarMaterial(new Madera(position = game.center()))
+		bob.guardarMaterial(new Madera(position = game.center()))
+		bob.guardarMaterial(new Madera(position = game.center()))
+		bob.guardarMaterial(new Metal(position = game.center()))
+		bob.guardarMaterial(new Metal(position = game.center()))
+		bob.energia(15)
+		assert.throwsExceptionWithMessage("No tengo energia",{bob.construir(mesa)})
+	}
 	
 //}
 

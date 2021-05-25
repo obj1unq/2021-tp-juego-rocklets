@@ -45,21 +45,23 @@ object bob {
 	} 
 	
 	method construir(unObjeto){
-		self.validarSiPuedeConstruirse(unObjeto)
-		self.tengoEnergiaParaConstruir(unObjeto)
+		self.validarSiTieneMaterialesNecesarios(unObjeto)
+		self.validarSiTieneEnergiaNecesaria(unObjeto)
 		game.addVisual(unObjeto) // quisiera mostrarlo en alguna parte especial de la pantalla donde se muestren
 								// los objetos que vamos construyendo, como un inventario de objetos construidos
 		unObjeto.materialesNecesarios().forEach({material=> self.gastarMaterial(material)}) 
 		}
 			
-    method validarSiPuedeConstruirse(unObjeto){
+    method validarSiTieneMaterialesNecesarios(unObjeto){
     	if (not unObjeto.puedeConstruirseCon(materialesGuardados)) {
-			self.error("No puedo construirlo, no tengo los materiales necesarios")
+			self.error("No tengo los materiales necesarios")
 		}
     }
     
-	method tengoEnergiaParaConstruir(unObjeto) {
-		return (energia >= unObjeto.energiaRequerida())
+	method validarSiTieneEnergiaNecesaria(unObjeto) {
+		if (energia <= unObjeto.energiaRequerida()){
+			self.error("No tengo energia")
+		}
 	}
 }
 
