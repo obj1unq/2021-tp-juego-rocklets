@@ -33,14 +33,14 @@ object gestorDeMateriales {
 	}
 	
 	method estaLlenoDeMateriales() {
-		return self.cantidadDeComidas() >= 10
+		return self.cantidadDeMateriales() >= 10
 	}
 	
-	method cantidadDeComidas() {
+	method cantidadDeMateriales() {
 		return materialesEnJuego.size() 
 	}
 	
-	method comidaExistente() {
+	method materialExistente() {
 		return materialesEnJuego.anyOne() 
 	}
 	
