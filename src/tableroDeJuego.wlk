@@ -24,6 +24,7 @@ object config {
 		keyboard.right().onPressDo({ bob.irA(bob.position().right(1))})
 		keyboard.up().onPressDo({ bob.irA(bob.position().up(1))})
 		keyboard.down().onPressDo({ bob.irA(bob.position().down(1))})
+		keyboard.m().onPressDo({bob.construir(mesa)})
 	}
 	
 	method configurarColisiones() {
@@ -31,7 +32,7 @@ object config {
 	}
 	
 	method configurarMaterialesAleatorios(){
-		game.onTick(2500, "MATERIAL", { gestorDeMateriales.agregarMaterialesSiRequiere() })
+		game.onTick(200, "MATERIAL", { gestorDeMateriales.agregarMaterialesSiRequiere() })
 	}
 
 }
