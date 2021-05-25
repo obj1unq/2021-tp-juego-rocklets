@@ -2,25 +2,28 @@ import wollok.game.*
 import materialesYExtras.*
 import bob.*
 
-describe "Tests de Bob" {
-	
-	const piedra = new Piedra (position = game.center())
- 
-	fixture {
-		game.clear()
-		game.addVisual(bob)
-		gestorDeMateriales.agregarMaterial(piedra)
-
-	}
+//describe "Tests de Bob" {
+// 
+//	fixture {
+//		game.clear()
+//		game.addVisual(bob)
+//		gestorDeMateriales.agregarMaterial(piedra)
+//
+//	}
 
 	test "Agarrar objeto si es material y agregarlo a la coleccion" {
 		bob.guardarMaterial(piedra)
 		assert.equals([piedra], bob.materialesGuardados())
 	}
 	
+	test "Armar mesa solo si tengo los materiales necesarios"{
+		bob.guardarMaterial(piedra)
+		assert.throwsExceptionWithMessage("No puedo construirlo, no tengo los materiales necesarios", { bob.construir(mesa) })
+		bob.guardarMaterial(madera)
+		assert.that(mesa.puedeConstruirse())
+	}
 	
-
-}
+//}
 
 
 

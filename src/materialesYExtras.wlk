@@ -1,37 +1,27 @@
 import wollok.game.*
 import randomizer.*
+import bob.*
 
 object gestorDeMateriales {
 	const materialesEnJuego = []
-	
+
 	method agregarMaterialesSiRequiere() {
 		if (not self.estaLlenoDeMateriales()) {
 			self.agregarNuevoMaterial()
 		}
-	}
+    }
 	
 	method agregarNuevoMaterial() {
-		const materialesPosibles = [
-			self.crearPiedraAleatoria(),
-			self.crearMetalAleatorio(),
-			self.crearMaderaAleatoria()
-		]
-		const nuevoMaterial = materialesPosibles.anyOne()
-		self.agregarMaterial(nuevoMaterial)
+		const materialesPosibles = [madera, metal, piedra]
+		const materialActual = materialesPosibles.anyOne()
+		if (not materialesEnJuego.contains(materialActual)){
+			self.agregarMaterial(materialActual)
+		}
 	}
 	
-	method crearPiedraAleatoria() {
-		return new Piedra(position = randomizer.emptyPosition())
-	}
-	
-	method crearMetalAleatorio() {
-		return new Metal(position = randomizer.emptyPosition())
-	}
-	
-	method crearMaderaAleatoria() {
-		return new Madera (position = randomizer.emptyPosition())
-	}
-	
+    method crearAleatoriamente(material){
+    	return material.position(randomizer.emptyPosition())
+    }
 	method estaLlenoDeMateriales() {
 		return self.cantidadDeMateriales() >= 10
 	}
@@ -46,6 +36,7 @@ object gestorDeMateriales {
 	
 	method agregarMaterial(material) {
 		materialesEnJuego.add(material)
+		self.crearAleatoriamente(material)
 		game.addVisual(material) 
 	}
 	
@@ -57,22 +48,21 @@ object gestorDeMateriales {
 	method existeMaterial(material) {
 		return materialesEnJuego.contains(material) 
 	}
-
 }
 
-class Piedra {
-	const property position
-
+object piedra {
+	var property position
+	
 	method image() = "piedra.png"
-
+	
 	method teEncontro(elConstructor) {
 		elConstructor.agarrarYQuitarMaterialDelCamino(self)
 	}
 }
 
-class Madera {
-	const property position
-
+object madera {
+	var property position
+	
 	method image() = "madera.png"	
 	
 	method teEncontro(elConstructor) {
@@ -81,9 +71,9 @@ class Madera {
 
 }
 
-class Metal {
-	const property position
-
+object metal {
+    var property position 
+    
 	method image() = "metal.png"	
 	
 	method teEncontro(elConstructor) {
@@ -111,4 +101,20 @@ class LugaresDeDescanso{
 		elConstructor.sumarEnergia(self)
 	}
 }
+
+
+object mesa {
+	const property image = "mesa.png" 
+	const property position = bob.position()
+	
+	const property materialesNecesarios = [madera, piedra]
+	
+	method puedeConstruirse() {
+		return materialesNecesarios.all({material=>bob.materialesGuardados().contains(material)})
+	}
+	
+	method teEncontro(elConstructor) {
+	}
+}
+
 
