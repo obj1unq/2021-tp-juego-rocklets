@@ -1,3 +1,19 @@
+import wollok.game.*
+import objetosConstruibles.*
+
+object fabrica {
+	
+	const property position = game.at(12, 3)
+	
+	method image() {return "fabrica.png"}	
+	
+	method teEncontro(elConstructor){
+		//Abrir pantalla  que de opciones 1.construir mesa 2.construir escritorio 3.........
+		elConstructor.contruir(mesa)
+	}
+	
+}
+
 object hotelTresEstrellas {
 	
 	//recupera algo de energia

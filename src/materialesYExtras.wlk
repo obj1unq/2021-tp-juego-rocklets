@@ -12,16 +12,21 @@ object gestorDeMateriales {
     }
 	
 	method agregarNuevoMaterial() {
-		const materialesPosibles = [madera, metal, piedra]
+		const materialesPosibles = [self.crearMaderaAleatoriamente(),self.crearMetalAleatoriamente(), self.crearPiedraAleatoriamente()]
 		const materialActual = materialesPosibles.anyOne()
-		if (not materialesEnJuego.contains(materialActual)){
-			self.agregarMaterial(materialActual)
-		}
+		self.agregarMaterial(materialActual)
 	}
 	
-    method crearAleatoriamente(material){
-    	return material.position(randomizer.emptyPosition())
+    method crearMaderaAleatoriamente(){
+    	return new Madera(position = randomizer.emptyPosition())
     }
+    method crearMetalAleatoriamente(){
+    	return new Metal(position = randomizer.emptyPosition())
+    }
+    method crearPiedraAleatoriamente(){
+    	return new Piedra(position = randomizer.emptyPosition())
+    }
+    
 	method estaLlenoDeMateriales() {
 		return self.cantidadDeMateriales() >= 10
 	}
@@ -36,7 +41,6 @@ object gestorDeMateriales {
 	
 	method agregarMaterial(material) {
 		materialesEnJuego.add(material)
-		self.crearAleatoriamente(material)
 		game.addVisual(material) 
 	}
 	
@@ -50,7 +54,8 @@ object gestorDeMateriales {
 	}
 }
 
-object piedra {
+class Piedra {
+	
 	var property position
 	
 	method image() = "piedra.png"
@@ -60,7 +65,7 @@ object piedra {
 	}
 }
 
-object madera {
+class Madera {
 	var property position
 	
 	method image() = "madera.png"	
@@ -71,7 +76,7 @@ object madera {
 
 }
 
-object metal {
+class Metal {
     var property position 
     
 	method image() = "metal.png"	
@@ -101,20 +106,4 @@ class LugaresDeDescanso{
 		elConstructor.sumarEnergia(self)
 	}
 }
-
-
-object mesa {
-	const property image = "mesa.png" 
-	const property position = bob.position()
-	
-	const property materialesNecesarios = [madera, piedra]
-	
-	method puedeConstruirse() {
-		return materialesNecesarios.all({material=>bob.materialesGuardados().contains(material)})
-	}
-	
-	method teEncontro(elConstructor) {
-	}
-}
-
 

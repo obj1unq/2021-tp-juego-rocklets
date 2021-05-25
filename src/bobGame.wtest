@@ -11,17 +11,23 @@ import bob.*
 //
 //	}
 
-	test "Agarrar objeto si es material y agregarlo a la coleccion" {
-		bob.guardarMaterial(piedra)
-		assert.equals([piedra], bob.materialesGuardados())
+	test "Al caminar bob pierde energia"{
+		const energiaInicial = bob.energia()
+		bob.irA(game.center())
+		assert.that(energiaInicial > bob.energia())
 	}
 	
-	test "Armar mesa solo si tengo los materiales necesarios"{
-		bob.guardarMaterial(piedra)
-		assert.throwsExceptionWithMessage("No puedo construirlo, no tengo los materiales necesarios", { bob.construir(mesa) })
-		bob.guardarMaterial(madera)
-		assert.that(mesa.puedeConstruirse())
+	test "Al agarrar un material, bob aumenta la cantidad de materiales en su inventario" {
+		bob.guardarMaterial(new Piedra(position = game.center()))
+		assert.equals(1,bob.materialesGuardados().size())
 	}
+	
+	//test "Armar mesa solo si tengo los materiales necesarios"{
+		//bob.guardarMaterial(piedra)
+	//	assert.throwsExceptionWithMessage("No puedo construirlo, no tengo los materiales necesarios", { bob.construir(mesa) })
+	//	bob.guardarMaterial(madera)
+	//	assert.that(mesa.puedeConstruirse())
+	//}
 	
 //}
 

@@ -13,6 +13,7 @@ object bob {
 	
 	method irA(nuevaPosicion) {
 		if (self.estaDentroDeLaPantalla(nuevaPosicion)){
+			energia -= 2
 			position = nuevaPosicion
 		}
 	}
@@ -45,7 +46,9 @@ object bob {
 	
 	method construir(unObjeto){
 		self.validarSiPuedeConstruirse(unObjeto)
-		game.addVisual(unObjeto)
+		self.tengoEnergiaParaConstruir(unObjeto)
+		game.addVisual(unObjeto) // quisiera mostrarlo en alguna parte especial de la pantalla donde se muestren
+								// los objetos que vamos construyendo, como un inventario de objetos construidos
 		unObjeto.materialesNecesarios().forEach({material=> self.gastarMaterial(material)}) 
 		/*Construir un objeto
 		Al construir voy a tener mas cansancio y perder ciertos materiales
@@ -56,10 +59,14 @@ object bob {
 		}
 			
     method validarSiPuedeConstruirse(unObjeto){
-    	if (not unObjeto.puedeConstruirse()) {
+    	if (not unObjeto.puedeConstruirseCon(materialesGuardados)) {
 			self.error("No puedo construirlo, no tengo los materiales necesarios")
 		}
     }
+    
+method tengoEnergiaParaConstruir(unObjeto) {
+	return (energia >= unObjeto.energiaRequerida())
+}
 		
 
 

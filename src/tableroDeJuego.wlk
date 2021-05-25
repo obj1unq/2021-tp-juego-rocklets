@@ -1,6 +1,7 @@
 import wollok.game.*
 import bob.*
 import materialesYExtras.*
+import edificios.*
 
 
 object nivelUnico {
@@ -9,6 +10,7 @@ object nivelUnico {
 	game.addVisual(bob)
 	game.addVisual(new LugaresDeDescanso (position=game.at(0,0), image="casa.png"))
 	game.addVisual(new LugaresDeDescanso (position=game.at(12,10), image="hotel5e.png"))
+	game.addVisual(fabrica)
 	config.configurarTeclas()
 	config.configurarColisiones()
 	config.configurarMaterialesAleatorios() 
