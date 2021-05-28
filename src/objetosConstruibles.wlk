@@ -1,5 +1,6 @@
 import materialesYExtras.*
 import bob.*
+import wollok.game.*
 
 object mesa{
 	
@@ -26,34 +27,32 @@ object mesa{
 		return [self.maderaNecesaria(),self.metalNecesario(),self.piedraNecesaria()]
 	}
 	
-	method puedeConstruirseCon(materiales){
-		const cantidadDeMaderaRecogida = materiales.count{material => material.toString() == 'a Madera'}
-		const cantidadDePiedraRecogida = materiales.count{material => material.toString() == 'a Piedra'}
-		const cantidadDeMetalRecogida = materiales.count{material => material.toString() == 'a Metal'}
-		
-		return (cantidadDeMaderaRecogida >= self.maderaNecesaria() and 
-			cantidadDePiedraRecogida >= self.piedraNecesaria() and 
-			cantidadDeMetalRecogida  >= self.metalNecesario())
-		
-	}
 	method teEncontro(unConstructor){
 		//nada, la mesa se va a guardar en un lugar aparte, luego esto se borra, pero por ahora lo necesitamos
 		//podria ser, guardarme la mesa tambien
 	}
 }
-/* 
+
 object silla{
-	//idem mesa
+	//TODO
+}
+
+object martillo{
+	//TODO
+}
+
+object gestorDeObjetosContruidos{
 	
-	method metalNecesario(){}
-	method maderaNecesaria(){}
-	method piedraNecesaria(){}
-	method materialesNecesarios(){
-		//siempre se devuelve en este orden
-		return [self.maderaNecesaria(),self.metalNecesario(),self.piedraNecesaria()]
+	//lista o algo para guararme los objetos
+	
+	method aniadirObjetoAlInventario(unObjeto){
+	//guardarse las cosas que contruí.
+	//me fijo si ya gane, o sea si ya contrui todo lo que necesitaba contruir para ganar.
+		//self.ganarNivel()
 	}
-	method energiaRequerida(){
-		return 40
+	
+	method ganarNivel(){
+		game.say(bob, "¡GANE!")
+		game.schedule(2000, { bob.pasarDeNivel() })
 	}
 }
-*/

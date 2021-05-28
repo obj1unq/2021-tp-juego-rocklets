@@ -12,6 +12,7 @@ object nivelUnico {
 
 	config.configurarTeclas()
 	config.configurarEdificios()
+	config.configurarObstaculos()
 	config.configurarColisiones()
 	config.configurarMaterialesAleatorios() 
 	}
@@ -43,5 +44,9 @@ object config {
 	method configurarMaterialesAleatorios(){
 		game.onTick(200, "MATERIAL", { gestorDeMateriales.agregarMaterialesSiRequiere() })
 	}
+	method configurarObstaculos() {
+		game.addVisual(new Obstaculo(image="agua.png",position=game.at(6,3) ,energiaQueQuita=bob.energia()))
+	}
+
 
 }
