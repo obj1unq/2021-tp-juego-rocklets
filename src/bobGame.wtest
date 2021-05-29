@@ -18,18 +18,18 @@ import objetosConstruibles.*
 		assert.that(energiaInicial > bob.energia())
 	}
 	
-	test "Al agarrar un material, bob aumenta la cantidad de materiales en su inventario" {
-		bob.guardarMaterial(new Piedra(position = game.center()))
-		assert.equals(1,bob.materialesGuardados().size())
-	}
-	
-	test "Al gastar un material, bob disminuye la cantidad de materiales en su inventario" {
-		const unaPiedra = new Piedra(position = game.center())
-		bob.guardarMaterial(unaPiedra)
-		assert.equals(1,bob.materialesGuardados().size())
-		bob.gastarMaterial(unaPiedra)
-		assert.equals(0,bob.materialesGuardados().size())
-	}
+//	test "Al agarrar un material, bob aumenta la cantidad de materiales en su inventario" {
+//		bob.guardarMaterial(new Piedra(position = game.center()))
+//		assert.equals(1,bob.materialesGuardados().size())
+//	}
+//	
+//	test "Al gastar un material, bob disminuye la cantidad de materiales en su inventario" {
+//		const unaPiedra = new Piedra(position = game.center())
+//		bob.guardarMaterial(unaPiedra)
+//		assert.equals(1,bob.materialesGuardados().size())
+//		bob.gastarMaterial(unaPiedra)
+//		assert.equals(0,bob.materialesGuardados().size())
+//	}
 	
 	test "No se puede construir una mesa si no se tienen los materiales necesarios" {
 		assert.throwsExceptionWithMessage("No tengo los materiales necesarios",{bob.construir(mesa)})
@@ -47,7 +47,25 @@ import objetosConstruibles.*
 		assert.throwsExceptionWithMessage("No tengo energia",{bob.construir(mesa)})
 	}
 	
-//}
+	test "Los ladrillos le quitan energia a Bob"{
+		const ladrillo = new Ladrillo(position=game.at(10,12))
+		assert.equals(100, bob.energia())
+		ladrillo.teEncontro(bob)
+		assert.equals(75,bob.energia())
+	}
+	
+	test "La imagen de bob cambia según su energia"{
+		const agua= new Obstaculo(image="agua.png",position=game.at(6,3) ,energiaQueQuita=bob.energia())
+		const ladrillo = new Ladrillo(position=game.at(10,12))
+	    assert.equals(100, bob.energia())
+	    assert.that(bob.image()=="bob.png")
+	    ladrillo.teEncontro(bob)
+	    ladrillo.teEncontro(bob)
+	    ladrillo.teEncontro(bob)
+	    assert.that(bob.image()=="bob_gris.png")
+	    agua.teEncontro(bob)
+	    assert.that(bob.image()=="tumba.png")
+	 }
 
 
 

@@ -3,7 +3,7 @@ import objetosConstruibles.*
 
 object fabrica {
 	
-	const property position = game.at(10, 3)
+	const property position = game.at(9, 3)
 	
 	method image() {return "fabrica.png"}	
 	
@@ -15,7 +15,7 @@ object fabrica {
 }
 
 object hotelTresEstrellas {
-	const property position = game.at(4, 2)
+	const property position = game.at(12, 10)
 		
 	method image() {return "hotel3e.png"}
 	
@@ -41,7 +41,7 @@ object hotelCincoEstrellas {
 
 	method teEncontro(unConstructor){
 		unConstructor.sumarEnergia(self)
-		game.say(hotelTresEstrellas,"Recuperando energia...")
+		game.say(hotelCincoEstrellas,"Recuperando energia...")
 	}
 }
 
@@ -57,6 +57,6 @@ object casa {
 
 	method teEncontro(unConstructor){
 		unConstructor.sumarEnergia(self)
-		game.say(hotelTresEstrellas,"Recuperando energia...")
+		game.say(casa,"Recuperando energia...")
 	}
 }

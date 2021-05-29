@@ -9,14 +9,15 @@ object nivelUnico {
 	
 	method iniciar(){
 	game.addVisual(bob)
-
 	config.configurarTeclas()
 	config.configurarEdificios()
 	config.configurarObstaculos()
 	config.configurarColisiones()
 	config.configurarMaterialesAleatorios() 
+	config.configurarCaidaDeLadrillo()
 	}
 	
+
 	
 }
 
@@ -27,7 +28,9 @@ object config {
 		keyboard.right().onPressDo({ bob.irA(bob.position().right(1))})
 		keyboard.up().onPressDo({ bob.irA(bob.position().up(1))})
 		keyboard.down().onPressDo({ bob.irA(bob.position().down(1))})
-		keyboard.m().onPressDo({bob.construir(mesa)})
+		keyboard.a().onPressDo({bob.construir(mesa)})
+		keyboard.s().onPressDo({bob.construir(silla)})
+		keyboard.d().onPressDo({bob.construir(martillo)})
 	}
 	
 	method configurarEdificios(){
@@ -47,6 +50,9 @@ object config {
 	method configurarObstaculos() {
 		game.addVisual(new Obstaculo(image="agua.png",position=game.at(6,3) ,energiaQueQuita=bob.energia()))
 	}
-
-
+	
+	method configurarCaidaDeLadrillo() {
+		game.onTick(1000, "ApareceLadrillo", {gestorDeLadrillos.generarNuevosLadrillos()})
+		game.onTick(100, "GravedadLadrillo",{gestorDeLadrillos.avanzar()})
+	}
 }

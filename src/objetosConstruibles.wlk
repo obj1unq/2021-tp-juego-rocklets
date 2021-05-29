@@ -34,11 +34,11 @@ object mesa{
 }
 
 object silla{
-	//TODO
+	const property image = "silla.png"
 }
 
 object martillo{
-	//TODO
+	const property image = "martillo.png"
 }
 
 object gestorDeObjetosContruidos{
