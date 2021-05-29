@@ -14,49 +14,14 @@ object fabrica {
 	
 }
 
-object hotelTresEstrellas {
-	const property position = game.at(12, 10)
-		
-	method image() {return "hotel3e.png"}
+class AreaDeDescanso{
+	const property position = null
+	const property image = null
+	const property energiaQueAporta = null
 	
-	method energiaQueAporta(){
-		return 30
-	}
-
 	method teEncontro(unConstructor){
 		unConstructor.sumarEnergia(self)
-		game.say(hotelTresEstrellas,"Recuperando energia...")
+		game.say(self,"Recuperando energia...")
 	}
 }
 
-object hotelCincoEstrellas {
-	
-	const property position = game.at(1, 9)
-	
-	method image() {return "hotel5e.png"}
-	
-	method energiaQueAporta(){
-		return 50
-	}
-
-	method teEncontro(unConstructor){
-		unConstructor.sumarEnergia(self)
-		game.say(hotelCincoEstrellas,"Recuperando energia...")
-	}
-}
-
-object casa {
-	
-	const property position = game.at(0, 1)
-	
-	method image() {return "casa.png"}
-	
-	method energiaQueAporta(){
-		return 100
-	}
-
-	method teEncontro(unConstructor){
-		unConstructor.sumarEnergia(self)
-		game.say(casa,"Recuperando energia...")
-	}
-}
