@@ -1,6 +1,7 @@
 import wollok.game.*
 import randomizer.*
 import bob.*
+import objetosConstruibles.*
 
 object gestorDeMaterialesEnTablero {
 	const materialesEnJuego = []
@@ -156,5 +157,11 @@ object gestorDeMaterialesAdquiridos{
 		unObjeto.metalNecesario().times({ iteracion => self.remover(metal)})
 		unObjeto.piedraNecesaria().times({ iteracion => self.remover(piedra)})
 		unObjeto.maderaNecesaria().times({ iteracion => self.remover(madera)})
+	}
+	
+	method construir(unObjeto){
+		game.addVisual(unObjeto)
+		self.gastarMaterialesNecesariosPara(unObjeto)
+		gestorDeObjetosContruidos.aniadirObjetoAlInventario(unObjeto)
 	}
 }

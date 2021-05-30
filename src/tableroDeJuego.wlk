@@ -16,9 +16,13 @@ object primerNivel {
 	config.configurarMaterialesAleatorios() 
 	}
 	
-	method terminar() {
+	method ganarNivel() {
 		game.clear()
 		segundoNivel.iniciar()
+	}
+	
+	method objetosAContruirParaGanar(){
+		return #{mesa}
 	}
 	
 }
@@ -35,10 +39,14 @@ object segundoNivel {
 	config.configurarCaidaDeLadrillo()
 	}
 
-	method terminar() {
+	method ganarNivel() {
 		game.stop()
 	}
-
+	
+	method objetosAContruirParaGanar(){
+		return #{mesa,silla,martillo}
+	}
+	
 }
 
 

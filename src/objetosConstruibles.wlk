@@ -1,6 +1,7 @@
 import materialesYExtras.*
 import bob.*
 import wollok.game.*
+import tableroDeJuego.*
 
 object mesa{
 	
@@ -38,16 +39,21 @@ object martillo{
 
 object gestorDeObjetosContruidos{
 	
-	//lista o algo para guararme los objetos
+	const inventarioDeObjetosConstruidos = #{}
 	
 	method aniadirObjetoAlInventario(unObjeto){
-	//guardarse las cosas que contruí.
-	//me fijo si ya gane, o sea si ya contrui todo lo que necesitaba contruir para ganar.
-		//self.ganarNivel()
+		inventarioDeObjetosConstruidos.add(unObjeto)
+		self.verificarSiSeGano()
+	}
+	
+	method verificarSiSeGano(){
+		if (primerNivel.objetosAContruirParaGanar() == inventarioDeObjetosConstruidos){ //aca iria el nivel actual.. no el primer nivel
+			self.ganarNivel()
+		}
 	}
 	
 	method ganarNivel(){
 		game.say(bob, "¡GANE!")
-		game.schedule(2000, { bob.pasarDeNivel() })
+		game.schedule(3000, { primerNivel.ganarNivel() })
 	}
 }
