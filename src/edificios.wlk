@@ -25,7 +25,7 @@ object hotelTresEstrellas {
 
 	method teEncontro(unConstructor){
 		unConstructor.sumarEnergia(self)
-		game.say(hotelTresEstrellas,"Recuperando energia...")
+		game.say(self,"Recuperando energia...")
 	}
 }
 
@@ -41,7 +41,7 @@ object hotelCincoEstrellas {
 
 	method teEncontro(unConstructor){
 		unConstructor.sumarEnergia(self)
-		game.say(hotelTresEstrellas,"Recuperando energia...")
+		game.say(self,"Recuperando energia...")
 	}
 }
 
