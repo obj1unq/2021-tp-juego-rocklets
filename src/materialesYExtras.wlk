@@ -115,6 +115,59 @@ class Obstaculo {
 	}
 }
 
+object gestorDeLadrillos{
+	const ladrillo1 = new Ladrillo (position=game.at(3,12))
+	const ladrillo2 = new Ladrillo(position=game.at(6,12))
+	const ladrillo3 = new Ladrillo(position=game.at(10,12))
+	
+	const property ladrillos = [ladrillo1, ladrillo2, ladrillo3]
+	const property ladrillosGenerados = [] 
+	
+	method agregarNuevoLadrilloSiRequiere() {
+		if ( ladrillosGenerados.isEmpty()) {
+			self.generarNuevosLadrillos()
+		}
+	}
+	
+	method generarNuevosLadrillos() {
+		const ladrillosPosibles = 
+		[new Ladrillo (position=game.at(3,12)),new  Ladrillo(position=game.at(6,10)), new Ladrillo(position=game.at(10,12))]
+		ladrillosPosibles.forEach({ladrillo=>ladrillosGenerados.add(ladrillo)})
+		ladrillosPosibles.forEach({ladrillo=> game.addVisual(ladrillo)})
+	 }
+
+	method avanzar(){
+		ladrillosGenerados.forEach( {ladrillo => ladrillo.caerSiEstaEnElAire()})
+	}
+}
+
+class Ladrillo{
+	var property position 
+    const property energiaQueQuita = 25
+    
+	method image() = "ladrillo.png"	
+	
+	method teEncontro(elConstructor) {
+		elConstructor.restarEnergia(self)
+	}
+
+	method caerSiEstaEnElAire() {
+		if (not self.estaEnElPiso()) {
+			position = position.down(1) 
+		}
+		else{
+			game.removeVisual(self)
+			gestorDeLadrillos.ladrillosGenerados().remove(self)
+		}
+		
+	}
+
+	method estaEnElPiso() {
+		return position.y() == 0 
+	}
+	
+}
+
 object gestorDeMaterialesAdquiridos{
 	
 	const piezasDeMadera = []
