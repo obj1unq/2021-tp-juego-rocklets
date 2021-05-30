@@ -3,7 +3,7 @@ import objetosConstruibles.*
 
 object fabrica {
 	
-	const property position = game.at(9, 3)
+	const property position = game.at(8, 3)
 	
 	method image() {return "fabrica.png"}	
 	

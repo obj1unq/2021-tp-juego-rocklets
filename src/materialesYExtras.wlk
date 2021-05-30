@@ -131,7 +131,7 @@ object gestorDeLadrillos{
 	
 	method generarNuevosLadrillos() {
 		const ladrillosPosibles = 
-		[new Ladrillo (position=game.at(3,12)),new  Ladrillo(position=game.at(6,10)), new Ladrillo(position=game.at(10,12))]
+		[new Ladrillo (position=game.at(3,12)),new  Ladrillo(position=game.at(6,12)), new Ladrillo(position=game.at(10,12))]
 		ladrillosPosibles.forEach({ladrillo=>ladrillosGenerados.add(ladrillo)})
 		ladrillosPosibles.forEach({ladrillo=> game.addVisual(ladrillo)})
 	 }
