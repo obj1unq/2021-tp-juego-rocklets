@@ -13,8 +13,8 @@ object gestorDeMaterialesEnTablero {
 	
 	method agregarNuevoMaterial() {
 		const materialesPosibles = [madera,metal,piedra]
-		const materialActual = materialesPosibles.anyOne()
-		self.agregarMaterial(new Material(tipo = materialActual, position = randomizer.emptyPosition()))
+		const materialPorAgregar = materialesPosibles.anyOne()
+		self.agregarMaterial(new Material(tipo = materialPorAgregar, position = randomizer.emptyPosition(), image = materialPorAgregar.image()))
 	}
 	
 	method estaLlenoDeMateriales() {
@@ -47,11 +47,8 @@ object gestorDeMaterialesEnTablero {
 class Material{
 	const property tipo
 	var property position
-	const image 
+	const property image 
 	
-	method image(){
-		return tipo.image()
-	}
 	method teEncontro(elConstructor) {
 		elConstructor.agarrarYQuitarMaterialDelCamino(self)
 	}

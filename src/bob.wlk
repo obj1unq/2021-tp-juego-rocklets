@@ -16,12 +16,16 @@ object bob {
 	
 	method irA(nuevaPosicion) {
 		self.validarQueEstaVivo()
-		if (self.estaDentroDeLaPantalla(nuevaPosicion)){
+		if (self.esUnaPosicionValida(nuevaPosicion)){
 			//ver si tiene energia, sino no se mueve y perdes.
 			//mostrar la energia en algun lado
 			energia -= 2
 			position = nuevaPosicion
 		}
+	}
+	
+	method esUnaPosicionValida(unaPosicion){
+		return self.estaDentroDeLaPantalla(unaPosicion) and not self.esUnaPosicionDelPanelSuperior(unaPosicion)
 	}
 	
 	method validarQueEstaVivo(){
@@ -87,6 +91,9 @@ object bob {
 	
 	method estaMuerto(){
 		return self.energia()<=0
+	}
+	method esUnaPosicionDelPanelSuperior(unaPosicion) {
+		return unaPosicion.y() == game.height()-1
 	}
 }
 
