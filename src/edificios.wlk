@@ -8,8 +8,7 @@ object fabrica {
 	method image() {return "fabrica.png"}	
 	
 	method teEncontro(unConstructor){
-		//Abrir pantalla  que de opciones 1.construir mesa 2.construir escritorio 3.........
-		unConstructor.construir(mesa)
+		game.say(fabrica,"Presione la tecla indicada.")
 	}
 	
 }

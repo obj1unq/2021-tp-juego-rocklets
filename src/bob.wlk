@@ -41,7 +41,7 @@ object bob {
 	
 	method agarrarYQuitarMaterialDelCamino(material){
 			self.guardarMaterial(material)
-			gestorDeMateriales.removerMaterial(material)
+			gestorDeMaterialesEnTablero.removerMaterial(material)
 	}
 		
 	method gastarMaterial(material){
@@ -61,8 +61,7 @@ object bob {
 	method construir(unObjeto){
 		self.validarSiTieneMaterialesNecesarios(unObjeto)
 		self.validarSiTieneEnergiaNecesaria(unObjeto)
-		game.addVisual(unObjeto) // quisiera mostrarlo en alguna parte especial de la pantalla donde se muestren
-								// los objetos que vamos construyendo, como un inventario de objetos construidos
+		game.addVisual(unObjeto)
 		gestorDeMaterialesAdquiridos.gastarMaterialesNecesariosPara(unObjeto) 
 		}
 			

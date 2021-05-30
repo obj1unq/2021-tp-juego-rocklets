@@ -55,7 +55,7 @@ object config {
 	}
 	
 	method configurarEdificios(){
-		game.addVisual(new AreaDeDescanso (image="hotel3e.png",position = game.at(12, 10), energiaQueAporta=10))
+		game.addVisual(new AreaDeDescanso (image="hotel3e.png",position = game.at(14, 8), energiaQueAporta=10))
 		game.addVisual(new AreaDeDescanso (image="hotel5e.png",position = game.at(1, 9), energiaQueAporta=50))
 		game.addVisual(new AreaDeDescanso (image="casa.png",position = game.at(0, 1), energiaQueAporta=80))
 		game.addVisual(fabrica)
@@ -66,10 +66,14 @@ object config {
 	}
 	
 	method configurarMaterialesAleatorios(){
-		game.onTick(200, "MATERIAL", { gestorDeMateriales.agregarMaterialesSiRequiere() })
+		game.onTick(200, "MATERIAL", { gestorDeMaterialesEnTablero.agregarMaterialesSiRequiere() })
 	}
 	method configurarObstaculos() {
-		game.addVisual(new Obstaculo(image="agua.png",position=game.at(6,3) ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position=game.at(11,8) ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position=game.at(10,8) ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position=game.at(9,8) ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position=game.at(6,9) ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position=game.at(6,10) ,energiaQueQuita=bob.energia()))
 	}
 	
 	method configurarCaidaDeLadrillo() {

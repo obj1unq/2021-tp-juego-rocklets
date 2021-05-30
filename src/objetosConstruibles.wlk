@@ -5,7 +5,7 @@ import wollok.game.*
 object mesa{
 	
 	const property image = "mesa.png"
-	const property position = bob.position()
+	const property position = game.at(6,11)
 	method maderaNecesaria(){
 		//se necesitan 5 unidades de madera para construir la mesa
 		return 5
@@ -20,11 +20,6 @@ object mesa{
 	
 	method energiaRequerida(){
 		return 20
-	}
-	
-	method materialesNecesarios(){
-		//siempre se devuelve en este orden
-		return [self.maderaNecesaria(),self.metalNecesario(),self.piedraNecesaria()]
 	}
 	
 	method teEncontro(unConstructor){

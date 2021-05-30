@@ -2,7 +2,7 @@ import wollok.game.*
 import randomizer.*
 import bob.*
 
-object gestorDeMateriales {
+object gestorDeMaterialesEnTablero {
 	const materialesEnJuego = []
 
 	method agregarMaterialesSiRequiere() {
@@ -12,21 +12,11 @@ object gestorDeMateriales {
     }
 	
 	method agregarNuevoMaterial() {
-		const materialesPosibles = [self.crearMaderaAleatoriamente(),self.crearMetalAleatoriamente(), self.crearPiedraAleatoriamente()]
+		const materialesPosibles = [madera,metal,piedra]
 		const materialActual = materialesPosibles.anyOne()
-		self.agregarMaterial(materialActual)
+		self.agregarMaterial(new Material(tipo = materialActual, position = randomizer.emptyPosition()))
 	}
 	
-    method crearMaderaAleatoriamente(){
-    	return new Madera(position = randomizer.emptyPosition())
-    }
-    method crearMetalAleatoriamente(){
-    	return new Metal(position = randomizer.emptyPosition())
-    }
-    method crearPiedraAleatoriamente(){
-    	return new Piedra(position = randomizer.emptyPosition())
-    }
-    
 	method estaLlenoDeMateriales() {
 		return self.cantidadDeMateriales() >= 10
 	}
@@ -54,57 +44,30 @@ object gestorDeMateriales {
 	}
 }
 
-class Piedra {
-	
+class Material{
+	const property tipo
 	var property position
+	const image 
 	
-	method image() = "piedra.png"
-	
-	method teEncontro(elConstructor) {
-		elConstructor.agarrarYQuitarMaterialDelCamino(self)
+	method image(){
+		return tipo.image()
 	}
-	
-	method serRecogidoPorConstructor(){
-		gestorDeMaterialesAdquiridos.recogerPiedra(self)
-	}
-	method serRemovido(){
-		gestorDeMaterialesAdquiridos.removerPiedra(self)
-	}
-}
-
-class Madera {
-	var property position
-	
-	method image() = "madera.png"	
-	
 	method teEncontro(elConstructor) {
 		elConstructor.agarrarYQuitarMaterialDelCamino(self)
 	}
 	method serRecogidoPorConstructor(){
-		gestorDeMaterialesAdquiridos.recogerMadera(self)
+		gestorDeMaterialesAdquiridos.recoger(self)
 	}
 	method serRemovido(){
-		gestorDeMaterialesAdquiridos.removerMadera(self)
+		gestorDeMaterialesAdquiridos.remover(self)
 	}
-
 }
 
-class Metal {
-    var property position 
-    
-	method image() = "metal.png"	
-	
-	method teEncontro(elConstructor) {
-		elConstructor.agarrarYQuitarMaterialDelCamino(self)
-	}
-	method serRecogidoPorConstructor(){
-		gestorDeMaterialesAdquiridos.recogerMetal(self)
-	}
-	method serRemovido(){
-		gestorDeMaterialesAdquiridos.removerMetal(self)
-	}
+object piedra {method image() = "piedra.png"}
 
-}
+object madera { method image() = "madera.png"}
+
+object metal { method image() = "metal.png"}
 
 class Obstaculo {	
 	const property image = null 
@@ -171,45 +134,30 @@ class Ladrillo{
 
 object gestorDeMaterialesAdquiridos{
 	
-	const piezasDeMadera = []
-	const piezasDePiedra = []
-	const piezasDeMetal = []
+	const materialesAdquiridos = []
 	
-	method cantidadDePiezasDeMetal(){
-		return piezasDeMetal.size()
+	method cantidadDePiezasDe(unTipoDeMaterial){
+		return materialesAdquiridos.count({material => material.tipo() == unTipoDeMaterial})
 	}
-	method cantidadDePiezasDeMadera(){
-		return piezasDeMadera.size()
-	}
-	method cantidadDePiezasDePiedra(){
-		return piezasDePiedra.size()
-	}
-	method recogerPiedra(unaPiedra){
-		piezasDePiedra.add(unaPiedra)
-	}
-	method recogerMadera(unaMadera){
-		piezasDeMadera.add(unaMadera)
-	}
-	method recogerMetal(unMetal){
-		piezasDeMetal.add(unMetal)
-	}
-	method removerMetal(unMetal) {
-		piezasDeMetal.remove(unMetal) 
-	}
-	method removerPiedra(unaPiedra) {
-		piezasDePiedra.remove(unaPiedra) 
-	}
-	method removerMadera(unaMadera) {
-		piezasDeMadera.remove(unaMadera) 
+
+	method remover(unTipoDeMaterial) {
+		const materialARemover = materialesAdquiridos.find({material => material.tipo() == unTipoDeMaterial}) 
+		materialesAdquiridos.remove(materialARemover)
 	}
 	
+	method recoger(unMaterial){
+		materialesAdquiridos.add(unMaterial)
+	}
+
 	method puedoConstruir(unObjeto) {
-		return (self.cantidadDePiezasDeMetal()>=unObjeto.metalNecesario() and
-			self.cantidadDePiezasDeMadera()>=unObjeto.maderaNecesaria() and
-			self.cantidadDePiezasDePiedra()>=unObjeto.piedraNecesaria()
+		return (self.cantidadDePiezasDe(metal)>=unObjeto.metalNecesario() and
+			self.cantidadDePiezasDe(madera)>=unObjeto.maderaNecesaria() and
+			self.cantidadDePiezasDe(piedra)>=unObjeto.piedraNecesaria()
 		)
 	}
-	method gastarMaterialesNecesariosPara(param1) {
-		
+	method gastarMaterialesNecesariosPara(unObjeto) {
+		unObjeto.metalNecesario().times({ iteracion => self.remover(metal)})
+		unObjeto.piedraNecesaria().times({ iteracion => self.remover(piedra)})
+		unObjeto.maderaNecesaria().times({ iteracion => self.remover(madera)})
 	}
 }
