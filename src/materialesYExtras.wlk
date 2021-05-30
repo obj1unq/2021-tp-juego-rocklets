@@ -3,48 +3,6 @@ import randomizer.*
 import bob.*
 import objetosConstruibles.*
 
-object gestorDeMaterialesEnTablero {
-	const materialesEnJuego = []
-
-	method agregarMaterialesSiRequiere() {
-		if (not self.estaLlenoDeMateriales()) {
-			self.agregarNuevoMaterial()
-		}
-    }
-	
-	method agregarNuevoMaterial() {
-		const materialesPosibles = [madera,metal,piedra]
-		const materialPorAgregar = materialesPosibles.anyOne()
-		self.agregarMaterial(new Material(tipo = materialPorAgregar, position = randomizer.emptyPosition(), image = materialPorAgregar.image()))
-	}
-	
-	method estaLlenoDeMateriales() {
-		return self.cantidadDeMateriales() >= 10
-	}
-	
-	method cantidadDeMateriales() {
-		return materialesEnJuego.size() 
-	}
-	
-	method materialExistente() {
-		return materialesEnJuego.anyOne() 
-	}
-	
-	method agregarMaterial(material) {
-		materialesEnJuego.add(material)
-		game.addVisual(material) 
-	}
-	
-	method removerMaterial(material) {
-		materialesEnJuego.remove(material)
-		game.removeVisual(material) 
-	}
-	
-	method existeMaterial(material) {
-		return materialesEnJuego.contains(material) 
-	}
-}
-
 class Material{
 	const property tipo
 	var property position
@@ -56,9 +14,9 @@ class Material{
 	method serRecogidoPorConstructor(){
 		gestorDeMaterialesAdquiridos.recoger(self)
 	}
-	method serRemovido(){
-		gestorDeMaterialesAdquiridos.remover(self)
-	}
+//	method serRemovido(){
+//		gestorDeMaterialesAdquiridos.remover(self)
+//	}
 }
 
 object piedra {method image() = "piedra.png"}
@@ -77,11 +35,7 @@ class Obstaculo {
 }
 
 object gestorDeLadrillos{
-	const ladrillo1 = new Ladrillo (position=game.at(3,12))
-	const ladrillo2 = new Ladrillo(position=game.at(6,12))
-	const ladrillo3 = new Ladrillo(position=game.at(10,12))
-	
-	const property ladrillos = [ladrillo1, ladrillo2, ladrillo3]
+
 	const property ladrillosGenerados = [] 
 	
 	method agregarNuevoLadrilloSiRequiere() {
@@ -128,6 +82,48 @@ class Ladrillo{
 		return position.y() == 0 
 	}
 	
+}
+
+object gestorDeMaterialesEnTablero {
+	const materialesEnJuego = []
+
+	method agregarMaterialesSiRequiere() {
+		if (not self.estaLlenoDeMateriales()) {
+			self.agregarNuevoMaterial()
+		}
+    }
+	
+	method agregarNuevoMaterial() {
+		const materialesPosibles = [madera,metal,piedra]
+		const materialPorAgregar = materialesPosibles.anyOne()
+		self.agregarMaterial(new Material(tipo = materialPorAgregar, position = randomizer.emptyPosition(), image = materialPorAgregar.image()))
+	}
+	
+	method estaLlenoDeMateriales() {
+		return self.cantidadDeMateriales() >= 10
+	}
+	
+	method cantidadDeMateriales() {
+		return materialesEnJuego.size() 
+	}
+	
+	method materialExistente() {
+		return materialesEnJuego.anyOne() 
+	}
+	
+	method agregarMaterial(material) {
+		materialesEnJuego.add(material)
+		game.addVisual(material) 
+	}
+	
+	method removerMaterial(material) {
+		materialesEnJuego.remove(material)
+		game.removeVisual(material) 
+	}
+	
+	method existeMaterial(material) {
+		return materialesEnJuego.contains(material) 
+	}
 }
 
 object gestorDeMaterialesAdquiridos{

@@ -48,9 +48,9 @@ object bob {
 			gestorDeMaterialesEnTablero.removerMaterial(material)
 	}
 		
-	method gastarMaterial(material){
-		material.serRemovido()
-	}
+//	method gastarMaterial(material){
+//		material.serRemovido()
+//	}
 	
 	method sumarEnergia(lugarDeDescanso){
 		energia += lugarDeDescanso.energiaQueAporta()

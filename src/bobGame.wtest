@@ -3,14 +3,13 @@ import materialesYExtras.*
 import bob.*
 import objetosConstruibles.*
 
-//describe "Tests de Bob" {
+describe "Tests de Bob" {
 // 
-//	fixture {
+	fixture {
 //		game.clear()
-//		game.addVisual(bob)
+		game.addVisual(bob)
 //		gestorDeMateriales.agregarMaterial(piedra)
-//
-//	}
+	}
 
 	test "Al caminar bob pierde energia"{
 		const energiaInicial = bob.energia()
@@ -18,31 +17,31 @@ import objetosConstruibles.*
 		assert.that(energiaInicial > bob.energia())
 	}
 	
-//	test "Al agarrar un material, bob aumenta la cantidad de materiales en su inventario" {
-//		bob.guardarMaterial(new Piedra(position = game.center()))
-//		assert.equals(1,bob.materialesGuardados().size())
-//	}
-//	
-//	test "Al gastar un material, bob disminuye la cantidad de materiales en su inventario" {
-//		const unaPiedra = new Piedra(position = game.center())
-//		bob.guardarMaterial(unaPiedra)
-//		assert.equals(1,bob.materialesGuardados().size())
-//		bob.gastarMaterial(unaPiedra)
-//		assert.equals(0,bob.materialesGuardados().size())
-//	}
+	test "Al agarrar un material, bob aumenta la cantidad de materiales en su inventario" {
+		bob.guardarMaterial(new Material(tipo = piedra, position = game.center(),image=piedra.image()))
+		assert.equals(1,gestorDeMaterialesAdquiridos.cantidadDePiezasDe(piedra))
+	}
+	
+	test "Al gastar un material, bob disminuye la cantidad de materiales en su inventario" {
+		const unaPiedra = new Material(tipo = piedra, position = game.center(),image=piedra.image())
+		bob.guardarMaterial(unaPiedra)
+		assert.equals(1,gestorDeMaterialesAdquiridos.cantidadDePiezasDe(piedra))
+		gestorDeMaterialesAdquiridos.remover(piedra)
+		assert.equals(0,gestorDeMaterialesAdquiridos.cantidadDePiezasDe(piedra))
+	}
 	
 	test "No se puede construir una mesa si no se tienen los materiales necesarios" {
 		assert.throwsExceptionWithMessage("No tengo los materiales necesarios",{bob.construir(mesa)})
 	}
 	
 	test "No se puede construir una mesa si el constructor no tiene la energia necesaria" {
-		bob.guardarMaterial(new Madera(position = game.center()))
-		bob.guardarMaterial(new Madera(position = game.center()))
-		bob.guardarMaterial(new Madera(position = game.center()))
-		bob.guardarMaterial(new Madera(position = game.center()))
-		bob.guardarMaterial(new Madera(position = game.center()))
-		bob.guardarMaterial(new Metal(position = game.center()))
-		bob.guardarMaterial(new Metal(position = game.center()))
+		bob.guardarMaterial(new Material(tipo = madera, position = game.center(),image=madera.image()))
+		bob.guardarMaterial(new Material(tipo = madera, position = game.center(),image=madera.image()))
+		bob.guardarMaterial(new Material(tipo = madera, position = game.center(),image=madera.image()))
+		bob.guardarMaterial(new Material(tipo = madera, position = game.center(),image=madera.image()))
+		bob.guardarMaterial(new Material(tipo = madera, position = game.center(),image=madera.image()))
+		bob.guardarMaterial(new Material(tipo = metal, position = game.center(),image=metal.image()))
+		bob.guardarMaterial(new Material(tipo = metal, position = game.center(),image=metal.image()))
 		bob.energia(15)
 		assert.throwsExceptionWithMessage("No tengo energia",{bob.construir(mesa)})
 	}
@@ -66,7 +65,7 @@ import objetosConstruibles.*
 	    agua.teEncontro(bob)
 	    assert.that(bob.image()=="tumba.png")
 	 }
-
+}
 
 
 
