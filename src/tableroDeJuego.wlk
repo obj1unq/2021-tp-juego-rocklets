@@ -5,7 +5,7 @@ import edificios.*
 import objetosConstruibles.*
 
 
-object nivelUnico {
+object primerNivel {
 	
 	method iniciar(){
 	game.addVisual(bob)
@@ -14,12 +14,33 @@ object nivelUnico {
 	config.configurarObstaculos()
 	config.configurarColisiones()
 	config.configurarMaterialesAleatorios() 
-	config.configurarCaidaDeLadrillo()
 	}
 	
-
+	method terminar() {
+		game.clear()
+		segundoNivel.iniciar()
+	}
 	
 }
+
+object segundoNivel {
+
+	method iniciar() {
+	game.addVisual(bob)
+	config.configurarTeclas()
+	config.configurarEdificios()
+	config.configurarObstaculos()
+	config.configurarColisiones()
+	config.configurarMaterialesAleatorios() 
+	config.configurarCaidaDeLadrillo()
+	}
+
+	method terminar() {
+		game.stop()
+	}
+
+}
+
 
 object config {
 

@@ -11,7 +11,7 @@ program juego {
 	game.boardGround("fondo.png")
 	game.cellSize(50)
 
-	nivelUnico.iniciar()
+	primerNivel.iniciar()
 	
 	game.start()
 }

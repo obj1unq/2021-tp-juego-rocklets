@@ -149,6 +149,7 @@ class Ladrillo{
 	
 	method teEncontro(elConstructor) {
 		elConstructor.restarEnergia(self)
+		game.say(bob,"Ouch, eso dolió.")
 	}
 
 	method caerSiEstaEnElAire() {
