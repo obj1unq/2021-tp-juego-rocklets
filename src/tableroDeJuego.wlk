@@ -5,48 +5,52 @@ import edificios.*
 import objetosConstruibles.*
 
 
-object primerNivel {
-	
-	method iniciar(){
-	game.addVisual(bob)
-	config.configurarTeclas()
-	config.configurarEdificios()
-	config.configurarObstaculos()
-	config.configurarColisiones()
-	config.configurarMaterialesAleatorios() 
+class Nivel {
+
+	method iniciar() {
+		game.addVisual(bob)
+		config.configurarTeclas()
+		config.configurarEdificios()
+		config.configurarObstaculos()
+		config.configurarColisiones()
+		config.configurarMaterialesAleatorios()
+		self.configuracionesPropiasDelNivel()
 	}
-	
+
+	method configuracionesPropiasDelNivel() {
+	// metodo abstracto
+	}
+
+}
+
+object primerNivel inherits Nivel {
+
 	method ganarNivel() {
 		game.clear()
 		segundoNivel.iniciar()
 	}
-	
-	method objetosAContruirParaGanar(){
-		return #{mesa}
+
+	method objetosAContruirParaGanar() {
+		return #{ mesa }
 	}
-	
+
 }
 
-object segundoNivel {
+object segundoNivel inherits Nivel {
 
-	method iniciar() {
-	game.addVisual(bob)
-	config.configurarTeclas()
-	config.configurarEdificios()
-	config.configurarObstaculos()
-	config.configurarColisiones()
-	config.configurarMaterialesAleatorios() 
-	config.configurarCaidaDeLadrillo()
+	override method configuracionesPropiasDelNivel() {
+		bob.position(game.at(1,6))
+		config.configurarCaidaDeLadrillo()
 	}
 
 	method ganarNivel() {
 		game.stop()
 	}
-	
-	method objetosAContruirParaGanar(){
-		return #{mesa,silla,martillo}
+
+	method objetosAContruirParaGanar() {
+		return #{ mesa, silla, martillo }
 	}
-	
+
 }
 
 
