@@ -67,9 +67,9 @@ object config {
 	}
 	
 	method configurarEdificios(){
-		game.addVisual(new AreaDeDescanso (image="hotel3e.png",position = game.at(14, 8), energiaQueAporta=10))
-		game.addVisual(new AreaDeDescanso (image="hotel5e.png",position = game.at(1, 9), energiaQueAporta=50))
-		game.addVisual(new AreaDeDescanso (image="casa.png",position = game.at(0, 1), energiaQueAporta=80))
+		game.addVisual(new HotelTresEstrellas (image="hotel3e.png",position = game.at(14, 8)))
+		game.addVisual(new HotelCincoEstrellas (image="hotel5e.png",position = game.at(1, 9)))
+		game.addVisual(new Hogar (image="casa.png",position = game.at(0, 1)))
 		game.addVisual(fabrica)
 	}
 	

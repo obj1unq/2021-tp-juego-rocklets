@@ -17,8 +17,6 @@ object bob {
 	method irA(nuevaPosicion) {
 		self.validarQueEstaVivo()
 		if (self.esUnaPosicionValida(nuevaPosicion)){
-			//ver si tiene energia, sino no se mueve y perdes.
-			//mostrar la energia en algun lado
 			energia -= 2
 			position = nuevaPosicion
 		}
@@ -52,8 +50,8 @@ object bob {
 //		material.serRemovido()
 //	}
 	
-	method sumarEnergia(lugarDeDescanso){
-		energia += lugarDeDescanso.energiaQueAporta()
+	method sumarEnergia(unaCantidadDeEnergia){
+		energia += unaCantidadDeEnergia
 	}
 	
 	method restarEnergia(obstaculo){
@@ -89,6 +87,9 @@ object bob {
 	}
 	method esUnaPosicionDelPanelSuperior(unaPosicion) {
 		return unaPosicion.y() == game.height()-1
+	}
+	method tomarSiestaReparadora(){
+		energia = 200
 	}
 }
 

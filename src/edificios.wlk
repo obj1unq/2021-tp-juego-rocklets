@@ -8,7 +8,7 @@ object fabrica {
 	method image() {return "fabrica.png"}	
 	
 	method teEncontro(unConstructor){
-		game.say(fabrica,"Presione la tecla indicada.")
+		game.say(self,"Presione la tecla indicada.")
 	}
 	
 }
@@ -16,10 +16,37 @@ object fabrica {
 class AreaDeDescanso{
 	const property position = null
 	const property image = null
-	const property energiaQueAporta = null
 	
 	method teEncontro(unConstructor){
-		unConstructor.sumarEnergia(self)
+		unConstructor.sumarEnergia(self.energiaQueAporta())
+		game.say(self,"Recuperando energia...")
+	}
+	
+	method energiaQueAporta()
+	
+}
+
+class HotelCincoEstrellas inherits AreaDeDescanso {
+	
+	override method energiaQueAporta(){
+		return 40
+	}
+}
+
+class HotelTresEstrellas inherits AreaDeDescanso {
+	
+	override method energiaQueAporta(){
+		return 20
+	}
+}
+
+class Hogar inherits AreaDeDescanso {
+	
+	override method energiaQueAporta(){
+		return 80
+	}
+	override method teEncontro(unConstructor){
+		unConstructor.tomarSiestaReparadora()
 		game.say(self,"Recuperando energia...")
 	}
 }
