@@ -1,6 +1,6 @@
 import wollok.game.*
 import bob.*
-import materialesYExtras.*
+import materialesObstaculosYExtras.*
 import edificios.*
 import objetosConstruibles.*
 

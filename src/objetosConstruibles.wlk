@@ -1,4 +1,4 @@
-import materialesYExtras.*
+import materialesObstaculosYExtras.*
 import bob.*
 import wollok.game.*
 import tableroDeJuego.*

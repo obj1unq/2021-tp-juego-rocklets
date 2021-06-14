@@ -17,9 +17,6 @@ class Material{
 	method serRecogidoPorConstructor(){
 		gestorDeMaterialesAdquiridos.recoger(self)
 	}
-//	method serRemovido(){
-//		gestorDeMaterialesAdquiridos.remover(self)
-//	}
 }
 
 object piedra {method image() = "piedra.png"}

@@ -1,5 +1,5 @@
 import wollok.game.*
-import materialesYExtras.*
+import materialesObstaculosYExtras.*
 
 object bob {
 	
