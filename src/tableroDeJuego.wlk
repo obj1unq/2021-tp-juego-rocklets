@@ -28,6 +28,7 @@ object primerNivel inherits Nivel {
 	method ganarNivel() {
 		game.clear()
 		segundoNivel.iniciar()
+		gestorDeMaterialesEnTablero.clear()
 	}
 
 	method objetosAContruirParaGanar() {

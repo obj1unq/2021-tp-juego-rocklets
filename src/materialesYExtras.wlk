@@ -6,7 +6,10 @@ import objetosConstruibles.*
 class Material{
 	const property tipo
 	var property position
-	const property image 
+	
+	method image(){
+		return tipo.image()
+	}
 	
 	method teEncontro(elConstructor) {
 		elConstructor.agarrarYQuitarMaterialDelCamino(self)
@@ -28,7 +31,8 @@ object metal { method image() = "metal.png"}
 class Obstaculo {	
 	const property image = null 
 	const property position = null 
-	const property energiaQueQuita = null
+	const property energiaQueQuita
+
 	method teEncontro(elConstructor) {
 		elConstructor.restarEnergia(self)
 	}
@@ -92,11 +96,14 @@ object gestorDeMaterialesEnTablero {
 			self.agregarNuevoMaterial()
 		}
     }
+	method clear(){
+	   materialesEnJuego.clear()	
+	}
 	
 	method agregarNuevoMaterial() {
 		const materialesPosibles = [madera,metal,piedra]
 		const materialPorAgregar = materialesPosibles.anyOne()
-		self.agregarMaterial(new Material(tipo = materialPorAgregar, position = randomizer.emptyPosition(), image = materialPorAgregar.image()))
+		self.agregarMaterial(new Material(tipo = materialPorAgregar, position = randomizer.emptyPosition()))
 	}
 	
 	method estaLlenoDeMateriales() {
