@@ -181,7 +181,6 @@ object gestorDeMaterialesAdquiridos{
 	}
 	
 	method construir(unObjeto){
-		game.addVisual(unObjeto)
 		self.gastarMaterialesNecesariosPara(unObjeto)
 		gestorDeObjetosContruidos.aniadirObjetoAlInventario(unObjeto)
 	}

@@ -32,7 +32,13 @@ object primerNivel inherits Nivel {
 	}
 
 	method objetosAContruirParaGanar() {
-		return #{ mesa }
+		return #{mesa}
+	}
+	override method configuracionesPropiasDelNivel() {
+		self.mostrarObjetivos()
+	}
+	method mostrarObjetivos(){
+		game.addVisual(mesa)
 	}
 
 }

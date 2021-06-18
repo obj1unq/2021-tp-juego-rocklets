@@ -6,8 +6,8 @@ import tableroDeJuego.*
 
 object mesa{
 	
-	const property image = "mesa.png"
-	const property position = game.at(6,11)
+	var property image = "mesaEnGris.png"
+	const property position = game.at(7,11)
 	method maderaNecesaria(){
 		//se necesitan 5 unidades de madera para construir la mesa
 		return 5
@@ -23,10 +23,9 @@ object mesa{
 	method energiaRequerida(){
 		return 20
 	}
-	
-	method teEncontro(unConstructor){
-		//nada, la mesa se va a guardar en un lugar aparte, luego esto se borra, pero por ahora lo necesitamos
-		//podria ser, guardarme la mesa tambien
+
+	method fuisteConstruido(){
+		image = "mesa.png"
 	}
 }
 
@@ -43,6 +42,7 @@ object gestorDeObjetosContruidos{
 	const inventarioDeObjetosConstruidos = #{}
 	
 	method aniadirObjetoAlInventario(unObjeto){
+		unObjeto.fuisteConstruido()
 		inventarioDeObjetosConstruidos.add(unObjeto)
 		self.verificarSiSeGano()
 	}
