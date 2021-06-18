@@ -163,8 +163,8 @@ object gestorDeMaterialesAdquiridos{
 	}
 	
 	method recoger(unMaterial){
-		materialesAdquiridos.add(unMaterial)
 		unMaterial.ubicacarEnInventario()  // agregar el material al panel derecho
+		materialesAdquiridos.add(unMaterial)
 		game.addVisual(unMaterial)
 	}
 	
@@ -184,5 +184,15 @@ object gestorDeMaterialesAdquiridos{
 		game.addVisual(unObjeto)
 		self.gastarMaterialesNecesariosPara(unObjeto)
 		gestorDeObjetosContruidos.aniadirObjetoAlInventario(unObjeto)
+	}
+	method hayEspacioParaMas(unMaterial){
+		return self.cantidadDe(unMaterial) != self.cantidadMaximaDeUnidadesPorMaterial()
+	}
+	
+	method cantidadDe(unMaterial){
+		return materialesAdquiridos.count({material => material.tipo() == unMaterial.tipo()})
+	}
+	method cantidadMaximaDeUnidadesPorMaterial(){
+		return game.height() - 3 //el inventario es las posiciones de una columna menos los encabezados
 	}
 }

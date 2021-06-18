@@ -1,4 +1,5 @@
 import wollok.game.*
+import bob.*
 
 object randomizer {
 		
@@ -28,13 +29,16 @@ object randomizer {
 			return position	
 		}
 		else {
-			return self.emptyPosition()
+			return self.emptyPositionInColumn(columnNumber)
 		} 
 	}
 	method positionInColumn(columnNumber){
-		return 	game.at(
-					(columnNumber),
-					(0 .. game.height() - 4).anyOne() //-2 porque hay un banner superior que no es parte del tablero de juego
-		)
+		const rowNumber = (0 .. self.maxPositionInRow()).anyOne()
+		return 	game.at(columnNumber,rowNumber)
+	}
+	method maxPositionInRow(){
+		
+		return game.height()-4
+		
 	}
 }

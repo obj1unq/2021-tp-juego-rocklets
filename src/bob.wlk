@@ -42,6 +42,7 @@ object bob {
 	}
 	
 	method agarrarYQuitarMaterialDelCamino(material){
+			self.verificarSiPuedeAgarrarMaterial(material)
 			gestorDeMaterialesEnTablero.removerMaterial(material)
 			self.guardarMaterial(material)
 	}
@@ -90,6 +91,11 @@ object bob {
 	}
 	method tomarSiestaReparadora(){
 		energia = 200
+	}
+	method verificarSiPuedeAgarrarMaterial(unMaterial) {
+		if (not gestorDeMaterialesAdquiridos.hayEspacioParaMas(unMaterial)){
+			self.error("No hay espacio para tomar este material.")
+		}
 	}
 }
 
