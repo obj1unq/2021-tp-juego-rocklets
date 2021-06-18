@@ -7,7 +7,7 @@ import tableroDeJuego.*
 program juego {
 	game.title("Juego Bob el constructor")
 	game.height(12)
-	game.width(15)
+	game.width(18)
 	game.boardGround("fondo.png")
 	game.cellSize(50)
 

@@ -23,7 +23,7 @@ object bob {
 	}
 	
 	method esUnaPosicionValida(unaPosicion){
-		return self.estaDentroDeLaPantalla(unaPosicion) and not self.esUnaPosicionDelPanelSuperior(unaPosicion)
+		return self.estaDentroDeLaPantalla(unaPosicion) and not self.esUnaPosicionProhibida(unaPosicion)
 	}
 	
 	method validarQueEstaVivo(){
@@ -42,21 +42,14 @@ object bob {
 	}
 	
 	method agarrarYQuitarMaterialDelCamino(material){
-			self.guardarMaterial(material)
 			gestorDeMaterialesEnTablero.removerMaterial(material)
+			self.guardarMaterial(material)
 	}
-		
-//	method gastarMaterial(material){
-//		material.serRemovido()
-//	}
-	
 	method sumarEnergia(unaCantidadDeEnergia){
 		energia += unaCantidadDeEnergia
 	}
 	
 	method restarEnergia(obstaculo){
-		//cambiar imagen si esta por debaje de X energia
-		//fijarte si se murio, no puede tener energia negativa
 		energia -= obstaculo.energiaQueQuita()
 	} 
 	
@@ -85,8 +78,15 @@ object bob {
 	method estaMuerto(){
 		return self.energia()<=0
 	}
+	method esUnaPosicionProhibida(unaPosicion){
+		return self.esUnaPosicionDelPanelSuperior(unaPosicion) or self.esUnaPosicionDelInventario(unaPosicion)
+	}
+	
 	method esUnaPosicionDelPanelSuperior(unaPosicion) {
 		return unaPosicion.y() == game.height()-1
+	}
+	method esUnaPosicionDelInventario(unaPosicion) {
+		return unaPosicion.x() == 17 or unaPosicion.x() == 16 or unaPosicion.x() == 15
 	}
 	method tomarSiestaReparadora(){
 		energia = 200

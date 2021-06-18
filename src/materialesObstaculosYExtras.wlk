@@ -17,13 +17,32 @@ class Material{
 	method serRecogidoPorConstructor(){
 		gestorDeMaterialesAdquiridos.recoger(self)
 	}
+	method ubicacarEnInventario(){
+		position = randomizer.emptyPositionInColumn(tipo.columnaEnElInventario())
+	}
 }
 
-object piedra {method image() = "piedra.png"}
+object piedra{
+	method image() = "piedra.png"
+	
+	method columnaEnElInventario(){
+		return 17
+	}
+}
 
-object madera { method image() = "madera.png"}
+object madera { 
+	method image() = "madera.png"
+	method columnaEnElInventario(){
+		return 16
+	}
+}
 
-object metal { method image() = "metal.png"}
+object metal { 
+	method image() = "metal.png"
+	method columnaEnElInventario(){
+		return 15
+	}
+}
 
 class Obstaculo {	
 	const property image = null 
@@ -145,8 +164,10 @@ object gestorDeMaterialesAdquiridos{
 	
 	method recoger(unMaterial){
 		materialesAdquiridos.add(unMaterial)
+		unMaterial.ubicacarEnInventario()  // agregar el material al panel derecho
+		game.addVisual(unMaterial)
 	}
-
+	
 	method puedoConstruir(unObjeto) {
 		return (self.cantidadDePiezasDe(metal)>=unObjeto.metalNecesario() and
 			self.cantidadDePiezasDe(madera)>=unObjeto.maderaNecesaria() and

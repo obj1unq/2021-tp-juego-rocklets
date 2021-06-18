@@ -3,6 +3,7 @@ import bob.*
 import wollok.game.*
 import tableroDeJuego.*
 
+
 object mesa{
 	
 	const property image = "mesa.png"
