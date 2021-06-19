@@ -17,21 +17,21 @@ class Nivel {
 		self.configuracionesPropiasDelNivel()
 	}
 
-	method configuracionesPropiasDelNivel() {
-	// metodo abstracto
-	}
-
+	method configuracionesPropiasDelNivel()// metodo abstracto
+	method ganarNivel()
 }
 
 object primerNivel inherits Nivel {
 
-	method ganarNivel() {
+	override method ganarNivel() {
 		game.clear()
 		segundoNivel.iniciar()
 		gestorDeMaterialesEnTablero.clear()
+		gestorDeMaterialesAdquiridos.clear()
+		gestorDeObjetosConstruidos.nivelActual(segundoNivel)
 	}
 
-	method objetosAContruirParaGanar() {
+	method objetosAConstruirParaGanar() {
 		return #{mesa}
 	}
 	override method configuracionesPropiasDelNivel() {
@@ -42,35 +42,41 @@ object primerNivel inherits Nivel {
 	}
 
 }
-
 object segundoNivel inherits Nivel {
 
 	override method configuracionesPropiasDelNivel() {
 		bob.position(game.at(1,6))
+		config.configurarParaNivelDos()
 		config.configurarCaidaDeLadrillo()
+		self.mostrarObjetivos()
+	}
+	
+	override method ganarNivel() {
+		game.schedule(2000,{game.stop()})
 	}
 
-	method ganarNivel() {
-		game.stop()
-	}
-
-	method objetosAContruirParaGanar() {
+	method objetosAConstruirParaGanar() {
 		return #{ mesa, silla, martillo }
 	}
-
+	method mostrarObjetivos(){
+		game.addVisual(mesa)
+		game.addVisual(silla)
+		game.addVisual(martillo)
+	}
 }
 
 
 object config {
-
+	method configurarParaNivelDos(){
+		keyboard.s().onPressDo({bob.construir(silla)})
+		keyboard.d().onPressDo({bob.construir(martillo)})
+	}
 	method configurarTeclas() {
 		keyboard.left().onPressDo({ bob.irA(bob.position().left(1))})
 		keyboard.right().onPressDo({ bob.irA(bob.position().right(1))})
 		keyboard.up().onPressDo({ bob.irA(bob.position().up(1))})
 		keyboard.down().onPressDo({ bob.irA(bob.position().down(1))})
 		keyboard.a().onPressDo({bob.construir(mesa)})
-		keyboard.s().onPressDo({bob.construir(silla)})
-		keyboard.d().onPressDo({bob.construir(martillo)})
 	}
 	
 	method configurarEdificios(){

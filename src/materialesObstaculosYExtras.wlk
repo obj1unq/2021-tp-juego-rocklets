@@ -66,7 +66,7 @@ object gestorDeLadrillos{
 	
 	method generarNuevosLadrillos() {
 		const ladrillosPosibles = 
-		[new Ladrillo (position=game.at(3,12)),new  Ladrillo(position=game.at(6,12)), new Ladrillo(position=game.at(10,12))]
+		[new Ladrillo (position=game.at(3,11)),new  Ladrillo(position=game.at(6,11)), new Ladrillo(position=game.at(10,11))]
 		ladrillosPosibles.forEach({ladrillo=>ladrillosGenerados.add(ladrillo)})
 		ladrillosPosibles.forEach({ladrillo=> game.addVisual(ladrillo)})
 	 }
@@ -84,7 +84,6 @@ class Ladrillo{
 	
 	method teEncontro(elConstructor) {
 		elConstructor.restarEnergia(self)
-		game.say(bob,"Ouch, eso dolió.")
 	}
 
 	method caerSiEstaEnElAire() {
@@ -153,12 +152,17 @@ object gestorDeMaterialesAdquiridos{
 	
 	const materialesAdquiridos = []
 	
+	method clear(){
+		materialesAdquiridos.clear()
+	}
+	
 	method cantidadDePiezasDe(unTipoDeMaterial){
 		return materialesAdquiridos.count({material => material.tipo() == unTipoDeMaterial})
 	}
 
 	method remover(unTipoDeMaterial) {
 		const materialARemover = materialesAdquiridos.find({material => material.tipo() == unTipoDeMaterial}) 
+		game.removeVisual(materialARemover)
 		materialesAdquiridos.remove(materialARemover)
 	}
 	
@@ -179,10 +183,11 @@ object gestorDeMaterialesAdquiridos{
 		unObjeto.piedraNecesaria().times({ iteracion => self.remover(piedra)})
 		unObjeto.maderaNecesaria().times({ iteracion => self.remover(madera)})
 	}
-	
+
 	method construir(unObjeto){
+		self.validarSiElObjetoYaFueConstruido(unObjeto)
 		self.gastarMaterialesNecesariosPara(unObjeto)
-		gestorDeObjetosContruidos.aniadirObjetoAlInventario(unObjeto)
+		gestorDeObjetosConstruidos.aniadirObjetoAlInventario(unObjeto)
 	}
 	method hayEspacioParaMas(unMaterial){
 		return self.cantidadDe(unMaterial) != self.cantidadMaximaDeUnidadesPorMaterial()
@@ -192,6 +197,11 @@ object gestorDeMaterialesAdquiridos{
 		return materialesAdquiridos.count({material => material.tipo() == unMaterial.tipo()})
 	}
 	method cantidadMaximaDeUnidadesPorMaterial(){
-		return game.height() - 3 //el inventario es las posiciones de una columna menos los encabezados
+		return game.height() - 3 //el inventario son las posiciones de una columna menos los encabezados
+	}
+	method validarSiElObjetoYaFueConstruido(objeto) {
+		if (objeto.fuisteConstruido()){
+			bob.error("ya está construido")
+		}
 	}
 }
