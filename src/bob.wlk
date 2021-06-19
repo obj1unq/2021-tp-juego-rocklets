@@ -28,6 +28,7 @@ object bob {
 	
 	method validarQueEstaVivo(){
 		if(self.estaMuerto()){
+			game.schedule(2000, { game.stop()})
 			self.error("Bob murió")
 		}
 	}
