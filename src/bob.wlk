@@ -1,5 +1,6 @@
 import wollok.game.*
 import materialesObstaculosYExtras.*
+import tableroDeJuego.*
 
 object bob {
 	
@@ -28,7 +29,7 @@ object bob {
 	
 	method validarQueEstaVivo(){
 		if(self.estaMuerto()){
-			game.schedule(2000, { game.stop()})
+			fondoPerdedor.finDeJuego()
 			self.error("Bob murió")
 		}
 	}
@@ -99,5 +100,3 @@ object bob {
 		}
 	}
 }
-
-

@@ -51,6 +51,17 @@ class Obstaculo {
 
 	method teEncontro(elConstructor) {
 		elConstructor.restarEnergia(self)
+		self.removerSiEsHongo()
+	}
+	
+	method removerSiEsHongo(){
+		if(self.esHongo()){
+			game.say(bob,"No debí comer eso.")
+			game.removeVisual(self)
+		}	
+	}
+	method esHongo(){
+		return image == "hongo.png"
 	}
 }
 
@@ -84,6 +95,7 @@ class Ladrillo{
 	
 	method teEncontro(elConstructor) {
 		elConstructor.restarEnergia(self)
+		game.say(bob,"Ouch, eso dolió.")
 	}
 
 	method caerSiEstaEnElAire() {

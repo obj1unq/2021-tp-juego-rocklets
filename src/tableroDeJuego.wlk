@@ -3,6 +3,7 @@ import bob.*
 import materialesObstaculosYExtras.*
 import edificios.*
 import objetosConstruibles.*
+import randomizer.*
 
 
 class Nivel {
@@ -70,7 +71,7 @@ object segundoNivel inherits Nivel {
 	}
 	
 	override method ganarNivel() {
-		game.schedule(2000,{game.stop()})
+		fondoGanador.finDeJuego()
 	}
 
 	method objetosAConstruirParaGanar() {
@@ -82,7 +83,6 @@ object segundoNivel inherits Nivel {
 		game.addVisual(martillo)
 	}
 }
-
 
 object config {
 
@@ -116,11 +116,13 @@ object config {
 		game.onTick(200, "MATERIAL", { gestorDeMaterialesEnTablero.agregarMaterialesSiRequiere() })
 	}
 	method configurarObstaculos() {
-		game.addVisual(new Obstaculo(image="agua.png",position=game.at(11,8) ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="agua.png",position=game.at(10,8) ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="agua.png",position=game.at(9,8) ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="agua.png",position=game.at(6,9) ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="agua.png",position=game.at(6,10) ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
+		game.addVisual(new Obstaculo(image="hongo.png",position= randomizer.emptyPosition() ,energiaQueQuita=10))
+		game.addVisual(new Obstaculo(image="hongo.png",position= randomizer.emptyPosition() ,energiaQueQuita=10))	
 	}
 	
 	method configurarCaidaDeLadrillo() {
@@ -128,3 +130,15 @@ object config {
 		game.onTick(100, "GravedadLadrillo",{gestorDeLadrillos.avanzar()})
 	}
 }
+
+class Fondo {
+	const property position = game.origin()
+	const property image 
+	method finDeJuego(){
+		game.clear()
+		game.addVisual(self)
+		game.schedule(3000,{game.stop()})
+	}
+}
+	const fondoGanador = new Fondo(image="win.png",position=game.origin())
+	const fondoPerdedor = new Fondo(image="lose.png",position=game.origin())
