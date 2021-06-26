@@ -10,8 +10,9 @@ program juego {
 	game.width(18)
 	game.boardGround("fondo.png")
 	game.cellSize(50)
-
-	primerNivel.iniciar()
+    
+	nivelCero.iniciar()
+	
 	
 	game.start()
 }

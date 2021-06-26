@@ -6,19 +6,35 @@ import objetosConstruibles.*
 
 
 class Nivel {
-
+	
 	method iniciar() {
 		game.addVisual(bob)
 		config.configurarTeclas()
 		config.configurarEdificios()
 		config.configurarObstaculos()
 		config.configurarColisiones()
-		config.configurarMaterialesAleatorios()
 		self.configuracionesPropiasDelNivel()
 	}
 
 	method configuracionesPropiasDelNivel()// metodo abstracto
 	method ganarNivel()
+}
+
+object nivelCero inherits Nivel{
+	
+	method image() = "nivelCero.png"
+	method position() = game.origin()
+	
+	override method configuracionesPropiasDelNivel(){
+		game.addVisual(self)
+	}
+	
+	override method ganarNivel() {
+		game.clear()
+		primerNivel.iniciar()
+	}
+	
+	
 }
 
 object primerNivel inherits Nivel {
@@ -35,6 +51,7 @@ object primerNivel inherits Nivel {
 		return #{mesa}
 	}
 	override method configuracionesPropiasDelNivel() {
+		config.configurarMaterialesAleatorios()
 		self.mostrarObjetivos()
 	}
 	method mostrarObjetivos(){
@@ -45,6 +62,7 @@ object primerNivel inherits Nivel {
 object segundoNivel inherits Nivel {
 
 	override method configuracionesPropiasDelNivel() {
+		config.configurarMaterialesAleatorios()
 		bob.position(game.at(1,6))
 		config.configurarParaNivelDos()
 		config.configurarCaidaDeLadrillo()
@@ -67,16 +85,20 @@ object segundoNivel inherits Nivel {
 
 
 object config {
-	method configurarParaNivelDos(){
-		keyboard.s().onPressDo({bob.construir(silla)})
-		keyboard.d().onPressDo({bob.construir(martillo)})
-	}
+
 	method configurarTeclas() {
+		keyboard.enter().onPressDo({nivelCero.ganarNivel()})
 		keyboard.left().onPressDo({ bob.irA(bob.position().left(1))})
 		keyboard.right().onPressDo({ bob.irA(bob.position().right(1))})
 		keyboard.up().onPressDo({ bob.irA(bob.position().up(1))})
 		keyboard.down().onPressDo({ bob.irA(bob.position().down(1))})
 		keyboard.a().onPressDo({bob.construir(mesa)})
+		
+	}
+	
+	method configurarParaNivelDos(){
+		keyboard.s().onPressDo({bob.construir(silla)})
+		keyboard.d().onPressDo({bob.construir(martillo)})
 	}
 	
 	method configurarEdificios(){
