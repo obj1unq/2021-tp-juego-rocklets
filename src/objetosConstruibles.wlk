@@ -111,5 +111,6 @@ object gestorDeObjetosConstruidos{
 	method ganarNivel(){
 		game.say(bob, "¡GANE!")
 		game.schedule(2000,{nivelActual.ganarNivel()})
+		
 	}
 }

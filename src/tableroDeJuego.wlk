@@ -26,11 +26,13 @@ object nivelCero inherits Nivel{
 	method position() = game.origin()
 	
 	override method configuracionesPropiasDelNivel(){
+		sonidos.playMusic("musicaInicial.mp3")
 		game.addVisual(self)
 	}
 	
 	override method ganarNivel() {
 		game.clear()
+		sonidos.stopMusic()
 		primerNivel.iniciar()
 	}
 	
@@ -40,6 +42,7 @@ object nivelCero inherits Nivel{
 object primerNivel inherits Nivel {
 
 	override method ganarNivel() {
+		sonidos.playMusic("musica.mp3")
 		game.clear()
 		segundoNivel.iniciar()
 		gestorDeMaterialesEnTablero.clear()
@@ -51,17 +54,21 @@ object primerNivel inherits Nivel {
 		return #{mesa}
 	}
 	override method configuracionesPropiasDelNivel() {
+		sonidos.playMusic("musica.mp3")
 		config.configurarMaterialesAleatorios()
 		self.mostrarObjetivos()
 	}
 	method mostrarObjetivos(){
 		game.addVisual(mesa)
 	}
+	
+	
 
 }
 object segundoNivel inherits Nivel {
 
 	override method configuracionesPropiasDelNivel() {
+		sonidos.playMusic("musica.mp3")
 		config.configurarMaterialesAleatorios()
 		bob.position(game.at(1,6))
 		config.configurarParaNivelDos()
@@ -127,4 +134,32 @@ object config {
 		game.onTick(1000, "ApareceLadrillo", {gestorDeLadrillos.generarNuevosLadrillos()})
 		game.onTick(100, "GravedadLadrillo",{gestorDeLadrillos.avanzar()})
 	}
+}
+
+object sonidos {
+	var property musica
+	var property soundOff=false
+	
+	method play(unSonido){
+		if(not soundOff){
+			game.sound(unSonido).play()}
+	}
+	
+	method stopMusic(){
+		musica.stop()
+	}
+	
+	method playMusic(unaMusica){
+		if(not soundOff){
+			musica=game.sound(unaMusica)
+			musica.shouldLoop(false)
+			game.schedule(1000, {musica.play()})	
+		}
+	}
+
+	
+	method soundOff(booleano){
+		soundOff=booleano
+	}
+
 }
