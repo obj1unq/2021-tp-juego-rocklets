@@ -1,5 +1,6 @@
 import wollok.game.*
 import objetosConstruibles.*
+import bob.*
 
 object fabrica {
 	
@@ -8,7 +9,7 @@ object fabrica {
 	method image() {return "fabrica.png"}	
 	
 	method teEncontro(unConstructor){
-		game.say(self,"Presione la tecla indicada.")
+		game.say(self,"Presione la tecla indicada.Mi energia es " + bob.energia())
 	}
 	
 }

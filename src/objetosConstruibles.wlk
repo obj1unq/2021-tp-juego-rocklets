@@ -42,11 +42,11 @@ object silla{
 		return image == "silla.png"
 	}
 	method maderaNecesaria(){
-		//se necesitan 5 unidades de madera para construir la mesa
+		//se necesitan 4 unidades de madera para construir la mesa
 		return 4
 	}
 	method metalNecesario(){
-		//Se necesitan 2 unidades de metal para consturir la mesa
+		//Se necesitan 3 unidades de metal para consturir la mesa
 		return 3
 	}
 	method piedraNecesaria(){

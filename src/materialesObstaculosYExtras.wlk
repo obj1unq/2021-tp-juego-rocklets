@@ -45,10 +45,10 @@ object metal {
 }
 
 class Obstaculo {	
-	const property image = null 
-	const property position = null 
-	const property energiaQueQuita
-
+	var property image= null
+	const property position = randomizer.emptyPosition()
+	var property energiaQueQuita = bob.energia()
+	
 	method teEncontro(elConstructor) {
 		elConstructor.restarEnergia(self)
 		self.removerSiEsHongo()
@@ -58,10 +58,32 @@ class Obstaculo {
 		if(self.esHongo()){
 			game.say(bob,"No debí comer eso.")
 			game.removeVisual(self)
-		}	
+		} 
+		else{
+			game.say(bob,"No se nadar")
+		}
 	}
+
 	method esHongo(){
-		return image == "hongo.png"
+		return false
+	}
+	
+}
+
+class Agua inherits Obstaculo{
+	override method image()= "agua.png"
+}
+
+class Hongo inherits Obstaculo{
+	
+	override method energiaQueQuita(){
+		return 10
+	}
+	
+	override method image()="hongo.png"
+	
+	override method esHongo(){
+		return true
 	}
 }
 
@@ -162,7 +184,7 @@ object gestorDeMaterialesEnTablero {
 
 object gestorDeMaterialesAdquiridos{
 	
-	const materialesAdquiridos = []
+	var property  materialesAdquiridos = []
 	
 	method clear(){
 		materialesAdquiridos.clear()

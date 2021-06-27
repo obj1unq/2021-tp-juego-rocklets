@@ -6,8 +6,9 @@ import objetosConstruibles.*
 import randomizer.*
 
 
+
 class Nivel {
-	
+    
 	method iniciar() {
 		game.addVisual(bob)
 		config.configurarTeclas()
@@ -42,25 +43,27 @@ object nivelCero inherits Nivel{
 
 object primerNivel inherits Nivel {
 
-	override method ganarNivel() {
-		sonidos.playMusic("musica.mp3")
-		game.clear()
-		segundoNivel.iniciar()
-		gestorDeMaterialesEnTablero.clear()
-		gestorDeMaterialesAdquiridos.clear()
-		gestorDeObjetosConstruidos.nivelActual(segundoNivel)
-	}
-
-	method objetosAConstruirParaGanar() {
-		return #{mesa}
-	}
 	override method configuracionesPropiasDelNivel() {
 		sonidos.playMusic("musica.mp3")
 		config.configurarMaterialesAleatorios()
 		self.mostrarObjetivos()
 	}
+	
+	method objetosAConstruirParaGanar() {
+		return #{mesa}
+	}
+		
 	method mostrarObjetivos(){
 		game.addVisual(mesa)
+	}
+	
+	override method ganarNivel() {
+		sonidos.stopMusic()
+		game.clear()
+		segundoNivel.iniciar()
+		gestorDeMaterialesEnTablero.clear()
+		gestorDeMaterialesAdquiridos.clear()
+		gestorDeObjetosConstruidos.nivelActual(segundoNivel)
 	}
 	
 	
@@ -77,17 +80,18 @@ object segundoNivel inherits Nivel {
 		self.mostrarObjetivos()
 	}
 	
-	override method ganarNivel() {
-		fondoGanador.finDeJuego()
-	}
-
 	method objetosAConstruirParaGanar() {
 		return #{ mesa, silla, martillo }
 	}
+	
 	method mostrarObjetivos(){
 		game.addVisual(mesa)
 		game.addVisual(silla)
 		game.addVisual(martillo)
+	}
+	
+	override method ganarNivel() {
+		fondoGanador.finDeJuego()
 	}
 }
 
@@ -123,13 +127,8 @@ object config {
 		game.onTick(200, "MATERIAL", { gestorDeMaterialesEnTablero.agregarMaterialesSiRequiere() })
 	}
 	method configurarObstaculos() {
-		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="agua.png",position= randomizer.emptyPosition() ,energiaQueQuita=bob.energia()))
-		game.addVisual(new Obstaculo(image="hongo.png",position= randomizer.emptyPosition() ,energiaQueQuita=10))
-		game.addVisual(new Obstaculo(image="hongo.png",position= randomizer.emptyPosition() ,energiaQueQuita=10))	
+		game.addVisual(new Agua()); game.addVisual(new Agua ()); game.addVisual(new Agua ());game.addVisual(new Agua ()); game.addVisual(new Agua ())
+		game.addVisual(new Hongo()); game.addVisual(new Hongo())
 	}
 	
 	method configurarCaidaDeLadrillo() {
@@ -138,7 +137,7 @@ object config {
 	}
 }
 
-<<<<<<< HEAD
+
 object sonidos {
 	var property musica
 	var property soundOff=false
@@ -156,7 +155,7 @@ object sonidos {
 		if(not soundOff){
 			musica=game.sound(unaMusica)
 			musica.shouldLoop(false)
-			game.schedule(1000, {musica.play()})	
+			game.schedule(100, {musica.play()})	
 		}
 	}
 
@@ -166,16 +165,23 @@ object sonidos {
 	}
 
 }
-=======
-class Fondo {
+class Fondo  {
 	const property position = game.origin()
 	const property image 
+	const property sonido
+	
 	method finDeJuego(){
 		game.clear()
 		game.addVisual(self)
 		game.schedule(3000,{game.stop()})
 	}
 }
-	const fondoGanador = new Fondo(image="win.png",position=game.origin())
-	const fondoPerdedor = new Fondo(image="lose.png",position=game.origin())
->>>>>>> branch 'master' of https://github.com/obj1unq/2021-tp-juego-rocklets.git
+
+object fondoGanador inherits Fondo {
+	 override method image() = "win.png"
+}
+
+object fondoPerdedor inherits Fondo{
+	 override method image() = "lose.png"
+}
+

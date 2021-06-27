@@ -6,9 +6,8 @@ import objetosConstruibles.*
 describe "Tests de Bob" {
 // 
 	fixture {
-//		game.clear()
 		game.addVisual(bob)
-//		gestorDeMateriales.agregarMaterial(piedra)
+
 	}
 
 	test "Al caminar bob pierde energia"{
@@ -35,13 +34,14 @@ describe "Tests de Bob" {
 	}
 	
 	test "No se puede construir una mesa si el constructor no tiene la energia necesaria" {
-		bob.guardarMaterial(new Material(tipo = madera, position = game.center()))
-		bob.guardarMaterial(new Material(tipo = madera, position = game.center()))
-		bob.guardarMaterial(new Material(tipo = madera, position = game.center()))
-		bob.guardarMaterial(new Material(tipo = madera, position = game.center()))
-		bob.guardarMaterial(new Material(tipo = madera, position = game.center()))
-		bob.guardarMaterial(new Material(tipo = metal, position = game.center()))
-		bob.guardarMaterial(new Material(tipo = metal, position = game.center()))
+		const madera1= new Material(tipo = madera, position = game.center())
+		const madera2= new Material(tipo = madera, position = game.center())
+		const madera3= new Material(tipo = madera, position = game.center())
+		const madera4= new Material(tipo = madera, position = game.center())
+		const madera5= new Material(tipo = madera, position = game.center())
+		const metal1= new Material(tipo = metal, position = game.center())
+		const metal2= new Material(tipo = metal, position = game.center())
+		gestorDeMaterialesAdquiridos.materialesAdquiridos([madera1,madera2,madera3,madera4,madera5,metal1,metal2])
 		bob.energia(15)
 		assert.throwsExceptionWithMessage("No tengo energia",{bob.construir(mesa)})
 	}
@@ -54,7 +54,7 @@ describe "Tests de Bob" {
 	}
 	
 	test "La imagen de bob cambia según su energia"{
-		const agua= new Obstaculo(image="agua.png",position=game.at(6,3) ,energiaQueQuita=bob.energia())
+		const agua= new Agua(image="agua.png")
 		const ladrillo = new Ladrillo(position=game.at(10,12))
 	    assert.equals(100, bob.energia())
 	    assert.that(bob.image()=="bob.png")
@@ -65,6 +65,22 @@ describe "Tests de Bob" {
 	    agua.teEncontro(bob)
 	    assert.that(bob.image()=="tumba.png")
 	 }
+	 
+	 	
+	test "Los hongos le quitan energia a Bob"{
+		const hongo = new Hongo(image="hongo.png", position=game.center())
+		game.addVisual(hongo)
+		assert.equals(100, bob.energia())
+		hongo.teEncontro(bob)
+		assert.equals(90,bob.energia())
+	}
+	
+	test "El agua mata a Bob"{
+		const agua = new Agua(image="agua.png")
+		assert.equals(100, bob.energia())
+		agua.teEncontro(bob)
+		assert.equals(0,bob.energia())
+	}
 }
 
 
