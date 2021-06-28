@@ -29,8 +29,14 @@ object bob {
 	
 	method validarQueEstaVivo(){
 		if(self.estaMuerto()){
-			fondoPerdedor.finDeJuego()
+			fondoYSonidoPerdedor.finDeJuego()
 			self.error("Bob murió")
+		}
+	}
+	
+	method morir(){
+		if (self.estaMuerto()){
+			fondoYSonidoPerdedor.finDeJuego()
 		}
 	}
 	

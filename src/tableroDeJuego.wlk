@@ -91,7 +91,7 @@ object segundoNivel inherits Nivel {
 	}
 	
 	override method ganarNivel() {
-		fondoGanador.finDeJuego()
+		fondoYSonidoGanador.finDeJuego()
 	}
 }
 
@@ -99,6 +99,7 @@ object config {
 
 	method configurarTeclas() {
 		keyboard.enter().onPressDo({nivelCero.ganarNivel()})
+		keyboard.w().onPressDo({segundoNivel.ganarNivel()})
 		keyboard.left().onPressDo({ bob.irA(bob.position().left(1))})
 		keyboard.right().onPressDo({ bob.irA(bob.position().right(1))})
 		keyboard.up().onPressDo({ bob.irA(bob.position().up(1))})
@@ -113,9 +114,7 @@ object config {
 	}
 	
 	method configurarEdificios(){
-		game.addVisual(new HotelTresEstrellas (image="hotel3e.png",position = game.at(14, 8)))
-		game.addVisual(new HotelCincoEstrellas (image="hotel5e.png",position = game.at(1, 9)))
-		game.addVisual(new Hogar (image="casa.png",position = game.at(0, 1)))
+		game.addVisual(hotelTresEstrellas); game.addVisual(hotelCincoEstrellas); game.addVisual(hogar); 
 		game.addVisual(fabrica)
 	}
 	
@@ -165,23 +164,29 @@ object sonidos {
 	}
 
 }
-class Fondo  {
+class FondoYSonido  {
 	const property position = game.origin()
 	const property image 
-	const property sonido
+
 	
 	method finDeJuego(){
 		game.clear()
 		game.addVisual(self)
-		game.schedule(3000,{game.stop()})
+		sonidos.stopMusic()
+		sonidos.playMusic(self.sonido())
+		game.schedule(9000,{game.stop()})
 	}
+	
+	method sonido()
 }
 
-object fondoGanador inherits Fondo {
+object fondoYSonidoGanador inherits FondoYSonido {
 	 override method image() = "win.png"
+	 override method sonido()= "sonidoGanador.mp3"
 }
 
-object fondoPerdedor inherits Fondo{
+object fondoYSonidoPerdedor inherits FondoYSonido{
 	 override method image() = "lose.png"
+	 override method sonido()= "sonidoPerdedor.mp3"
 }
 

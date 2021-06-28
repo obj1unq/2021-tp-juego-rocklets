@@ -81,6 +81,8 @@ describe "Tests de Bob" {
 		agua.teEncontro(bob)
 		assert.equals(0,bob.energia())
 	}
+	
+
 }
 
 
