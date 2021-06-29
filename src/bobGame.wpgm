@@ -8,7 +8,7 @@ program juego {
 	game.title("Juego Bob el constructor")
 	game.height(12)
 	game.width(18)
-	game.boardGround("fondo.png")
+	game.boardGround("fondoConInst.png")
 	game.cellSize(50)
     
 	nivelCero.iniciar()
