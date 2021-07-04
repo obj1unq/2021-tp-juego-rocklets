@@ -8,9 +8,11 @@ object bob {
 	var property energia = 100
 
 	method image() {
-		return if (self.estaMuerto())
+		return
+		 if (self.estaMuerto())
 			"tumba.png"
-		else if (self.tienePocaEnergia())
+		 else 
+		if (self.tienePocaEnergia())
 		    "bob_gris.png" 
 		 else "bob.png"
 	}
@@ -30,7 +32,7 @@ object bob {
 	
 	method validarQueEstaVivo(){
 		if(self.estaMuerto()){
-			fondoYSonidoPerdedor.finDeJuego()
+			config.configurarPerder()		
 		}
 	}
 

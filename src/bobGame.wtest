@@ -2,6 +2,7 @@ import wollok.game.*
 import materialesObstaculosYExtras.*
 import bob.*
 import objetosConstruibles.*
+import tableroDeJuego.*
 
 describe "Tests de Bob" {
 	
@@ -76,7 +77,7 @@ describe "Tests de Bob" {
 	    ladrillo.teEncontro(bob)
 	    assert.that(bob.image()=="bob_gris.png")
 	    agua.teEncontro(bob)
-	    assert.that(bob.image()=="tumba.png")
+		assert.that(bob.image()=="tumba.png")
 	 }
 	 
 	 	
@@ -88,7 +89,7 @@ describe "Tests de Bob" {
 	}
 	
 	test "El agua mata a Bob"{
-		assert.equals(100, bob.energia())
+		assert.equals(100, bob.energia()) 
 		agua.teEncontro(bob)
 		assert.equals(0,bob.energia())
 	}
