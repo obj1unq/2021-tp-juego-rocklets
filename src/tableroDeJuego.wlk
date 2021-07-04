@@ -174,7 +174,7 @@ class FondoYSonido  {
 		game.addVisual(self)
 		sonidos.stopMusic()
 		sonidos.playMusic(self.sonido())
-		game.schedule(9000,{game.stop()})
+		game.schedule(7000,{game.stop()})
 	}
 	
 	method sonido()

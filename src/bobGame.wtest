@@ -4,9 +4,25 @@ import bob.*
 import objetosConstruibles.*
 
 describe "Tests de Bob" {
-// 
+	
+	//Materiales
+	const unaPiedra = new Material(tipo = piedra, position = game.center())
+	const madera1= new Material(tipo = madera, position = game.center())
+	const madera2= new Material(tipo = madera, position = game.center())
+	const madera3= new Material(tipo = madera, position = game.center())
+	const madera4= new Material(tipo = madera, position = game.center())
+	const madera5= new Material(tipo = madera, position = game.center())
+	const metal1= new Material(tipo = metal, position = game.center())
+	const metal2= new Material(tipo = metal, position = game.center())
+	const ladrillo = new Ladrillo(position=game.at(10,12))
+	
+	//Obstaculos
+	const agua= new Agua(image="agua.png")
+	const hongo = new Hongo(image="hongo.png", position=game.center())
+	
 	fixture {
 		game.addVisual(bob)
+		game.addVisual(unaPiedra)
 
 	}
 
@@ -17,12 +33,11 @@ describe "Tests de Bob" {
 	}
 	
 	test "Al agarrar un material, bob aumenta la cantidad de materiales en su inventario" {
-		bob.guardarMaterial(new Material(tipo = piedra, position = game.center()))
+		bob.guardarMaterial(unaPiedra)
 		assert.equals(1,gestorDeMaterialesAdquiridos.cantidadDePiezasDe(piedra))
 	}
 	
 	test "Al gastar un material, bob disminuye la cantidad de materiales en su inventario" {
-		const unaPiedra = new Material(tipo = piedra, position = game.center())
 		bob.guardarMaterial(unaPiedra)
 		assert.equals(1,gestorDeMaterialesAdquiridos.cantidadDePiezasDe(piedra))
 		gestorDeMaterialesAdquiridos.remover(piedra)
@@ -32,30 +47,28 @@ describe "Tests de Bob" {
 	test "No se puede construir una mesa si no se tienen los materiales necesarios" {
 		assert.throwsExceptionWithMessage("No tengo los materiales necesarios",{bob.construir(mesa)})
 	}
+	test "No se puede construir un martillo si no se tienen los materiales necesarios" {
+		assert.throwsExceptionWithMessage("No tengo los materiales necesarios",{bob.construir(martillo)})
+	}
+	test "No se puede construir una silla si no se tienen los materiales necesarios" {
+		assert.throwsExceptionWithMessage("No tengo los materiales necesarios",{bob.construir(silla)})
+	}
+	
+	
 	
 	test "No se puede construir una mesa si el constructor no tiene la energia necesaria" {
-		const madera1= new Material(tipo = madera, position = game.center())
-		const madera2= new Material(tipo = madera, position = game.center())
-		const madera3= new Material(tipo = madera, position = game.center())
-		const madera4= new Material(tipo = madera, position = game.center())
-		const madera5= new Material(tipo = madera, position = game.center())
-		const metal1= new Material(tipo = metal, position = game.center())
-		const metal2= new Material(tipo = metal, position = game.center())
 		gestorDeMaterialesAdquiridos.materialesAdquiridos([madera1,madera2,madera3,madera4,madera5,metal1,metal2])
 		bob.energia(15)
 		assert.throwsExceptionWithMessage("No tengo energia",{bob.construir(mesa)})
 	}
 	
 	test "Los ladrillos le quitan energia a Bob"{
-		const ladrillo = new Ladrillo(position=game.at(10,12))
 		assert.equals(100, bob.energia())
 		ladrillo.teEncontro(bob)
 		assert.equals(75,bob.energia())
 	}
 	
 	test "La imagen de bob cambia según su energia"{
-		const agua= new Agua(image="agua.png")
-		const ladrillo = new Ladrillo(position=game.at(10,12))
 	    assert.equals(100, bob.energia())
 	    assert.that(bob.image()=="bob.png")
 	    ladrillo.teEncontro(bob)
@@ -68,7 +81,6 @@ describe "Tests de Bob" {
 	 
 	 	
 	test "Los hongos le quitan energia a Bob"{
-		const hongo = new Hongo(image="hongo.png", position=game.center())
 		game.addVisual(hongo)
 		assert.equals(100, bob.energia())
 		hongo.teEncontro(bob)
@@ -76,7 +88,6 @@ describe "Tests de Bob" {
 	}
 	
 	test "El agua mata a Bob"{
-		const agua = new Agua(image="agua.png")
 		assert.equals(100, bob.energia())
 		agua.teEncontro(bob)
 		assert.equals(0,bob.energia())

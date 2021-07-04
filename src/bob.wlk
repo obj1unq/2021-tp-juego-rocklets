@@ -16,11 +16,12 @@ object bob {
 	}
 	
 	method irA(nuevaPosicion) {
-		self.validarQueEstaVivo()
+		
 		if (self.esUnaPosicionValida(nuevaPosicion)){
 			energia -= 2
 			position = nuevaPosicion
 		}
+		self.validarQueEstaVivo()
 	}
 	
 	method esUnaPosicionValida(unaPosicion){
@@ -30,29 +31,22 @@ object bob {
 	method validarQueEstaVivo(){
 		if(self.estaMuerto()){
 			fondoYSonidoPerdedor.finDeJuego()
-			self.error("Bob murió")
 		}
 	}
-	
-	method morir(){
-		if (self.estaMuerto()){
-			fondoYSonidoPerdedor.finDeJuego()
-		}
-	}
-	
+
 	method estaDentroDeLaPantalla(nuevaPosicion) {
 		return 	nuevaPosicion.x().between(0, game.width() - 1) 
 		    and nuevaPosicion.y().between(0, game.height() - 1)
 	}
 	
 	method guardarMaterial(material){
-			material.serRecogidoPorConstructor()
+		gestorDeMaterialesEnTablero.removerMaterial(material)
+		material.serRecogidoPorConstructor()
 	}
 	
 	method agarrarYQuitarMaterialDelCamino(material){
-			self.verificarSiPuedeAgarrarMaterial(material)
-			gestorDeMaterialesEnTablero.removerMaterial(material)
-			self.guardarMaterial(material)
+		self.verificarSiPuedeAgarrarMaterial(material)
+		self.guardarMaterial(material)
 	}
 	method sumarEnergia(unaCantidadDeEnergia){
 		energia += unaCantidadDeEnergia
@@ -60,13 +54,18 @@ object bob {
 	
 	method restarEnergia(obstaculo){
 		energia -= obstaculo.energiaQueQuita()
+		self.validarQueEstaVivo()
 	} 
 	
 	method construir(unObjeto){
-		self.validarSiTieneMaterialesNecesarios(unObjeto)
-		self.validarSiTieneEnergiaNecesaria(unObjeto)
+		self.validarSiPuedeConstruir(unObjeto)
 		gestorDeMaterialesAdquiridos.construir(unObjeto)
-		}
+	}
+	
+	method validarSiPuedeConstruir(unObjeto){
+		self.validarSiTieneMaterialesNecesarios(unObjeto)
+		self.validarSiTieneEnergiaNecesaria(unObjeto) 
+	}
 		
     method validarSiTieneMaterialesNecesarios(unObjeto){
     	if (not gestorDeMaterialesAdquiridos.puedoConstruir(unObjeto)) {
@@ -87,6 +86,7 @@ object bob {
 	method estaMuerto(){
 		return self.energia()<=0
 	}
+	
 	method esUnaPosicionProhibida(unaPosicion){
 		return self.esUnaPosicionDelPanelSuperior(unaPosicion) or self.esUnaPosicionDelInventario(unaPosicion)
 	}
@@ -96,9 +96,6 @@ object bob {
 	}
 	method esUnaPosicionDelInventario(unaPosicion) {
 		return unaPosicion.x() == 17 or unaPosicion.x() == 16 or unaPosicion.x() == 15
-	}
-	method tomarSiestaReparadora(){
-		energia = 200
 	}
 	method verificarSiPuedeAgarrarMaterial(unMaterial) {
 		if (not gestorDeMaterialesAdquiridos.hayEspacioParaMas(unMaterial)){

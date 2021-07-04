@@ -46,32 +46,22 @@ object metal {
 
 class Obstaculo {	
 	var property image= null
-	const property position = randomizer.emptyPosition()
+	var property position = randomizer.emptyPosition()
 	var property energiaQueQuita = bob.energia()
 	
 	method teEncontro(elConstructor) {
 		elConstructor.restarEnergia(self)
-		self.removerSiEsHongo()
-	}
-	
-	method removerSiEsHongo(){
-		if(self.esHongo()){
-			game.say(bob,"No debí comer eso.")
-			game.removeVisual(self)
-		} 
-		else{
-			game.say(bob,"No se nadar")
-		}
-	}
-
-	method esHongo(){
-		return false
 	}
 	
 }
 
 class Agua inherits Obstaculo{
 	override method image()= "agua.png"
+	
+	override method teEncontro(elConstructor){
+		game.say(bob,"No se nadar")
+		super(elConstructor)
+	}
 }
 
 class Hongo inherits Obstaculo{
@@ -82,8 +72,10 @@ class Hongo inherits Obstaculo{
 	
 	override method image()="hongo.png"
 	
-	override method esHongo(){
-		return true
+	override method teEncontro(elConstructor){
+		game.say(bob,"No debí comer eso.")
+		game.removeVisual(self)
+		super(elConstructor) 
 	}
 }
 
@@ -92,16 +84,16 @@ object gestorDeLadrillos{
 	const property ladrillosGenerados = [] 
 	
 	method agregarNuevoLadrilloSiRequiere() {
-		if ( ladrillosGenerados.isEmpty()) {
+		if (ladrillosGenerados.isEmpty()) {
 			self.generarNuevosLadrillos()
 		}
 	}
 	
 	method generarNuevosLadrillos() {
-		const ladrillosPosibles = 
+		const nuevosLadrillos = 
 		[new Ladrillo (position=game.at(3,11)),new  Ladrillo(position=game.at(6,11)), new Ladrillo(position=game.at(10,11))]
-		ladrillosPosibles.forEach({ladrillo=>ladrillosGenerados.add(ladrillo)})
-		ladrillosPosibles.forEach({ladrillo=> game.addVisual(ladrillo)})
+		nuevosLadrillos.forEach({ladrillo=>ladrillosGenerados.add(ladrillo)})
+		nuevosLadrillos.forEach({ladrillo=> game.addVisual(ladrillo)})
 	 }
 
 	method avanzar(){
@@ -109,15 +101,17 @@ object gestorDeLadrillos{
 	}
 }
 
-class Ladrillo{
-	var property position 
-    const property energiaQueQuita = 25
+class Ladrillo inherits Obstaculo{
     
-	method image() = "ladrillo.png"	
+    override method energiaQueQuita(){
+    	 return 25	 
+    }
+    
+	override method image() = "ladrillo.png"	
 	
-	method teEncontro(elConstructor) {
-		elConstructor.restarEnergia(self)
+	override method teEncontro(elConstructor) {
 		game.say(bob,"Ouch, eso dolió.")
+		super(elConstructor)
 	}
 
 	method caerSiEstaEnElAire() {
@@ -163,10 +157,6 @@ object gestorDeMaterialesEnTablero {
 		return materialesEnJuego.size() 
 	}
 	
-	method materialExistente() {
-		return materialesEnJuego.anyOne() 
-	}
-	
 	method agregarMaterial(material) {
 		materialesEnJuego.add(material)
 		game.addVisual(material) 
@@ -175,10 +165,6 @@ object gestorDeMaterialesEnTablero {
 	method removerMaterial(material) {
 		materialesEnJuego.remove(material)
 		game.removeVisual(material) 
-	}
-	
-	method existeMaterial(material) {
-		return materialesEnJuego.contains(material) 
 	}
 }
 

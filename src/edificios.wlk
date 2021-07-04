@@ -9,7 +9,8 @@ object fabrica {
 	method image() {return "fabrica.png"}	
 	
 	method teEncontro(unConstructor){
-		game.say(self,"Presione la tecla indicada.Mi energia es " + bob.energia())
+		game.say(self,"Presione la tecla indicada.")
+		game.say(self,"Mi energia es " + bob.energia())
 	}
 	
 }
@@ -50,8 +51,4 @@ object hogar inherits AreaDeDescanso {
 	override method energiaQueAporta(){
 		return 80
 	}
-//	override method teEncontro(unConstructor){
-//		unConstructor.tomarSiestaReparadora()
-//		game.say(self,"Recuperando energia...")
-//	}
 }
