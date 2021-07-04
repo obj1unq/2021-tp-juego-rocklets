@@ -63,7 +63,7 @@ object primerNivel inherits Nivel {
 		segundoNivel.iniciar()
 		gestorDeMaterialesEnTablero.clear()
 		gestorDeMaterialesAdquiridos.clear()
-		gestorDeObjetosConstruidos.nivelActual(segundoNivel)
+		gestorDeObjetivos.nivelActual(segundoNivel)
 	}
 	
 	

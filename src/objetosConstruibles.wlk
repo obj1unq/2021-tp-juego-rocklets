@@ -3,100 +3,110 @@ import bob.*
 import wollok.game.*
 import tableroDeJuego.*
 
+class ObjetoConstruible{
+	const property position
+	
+	method position()
+	method fuisteConstruido()
+	method maderaNecesaria()
+	method metalNecesario()
+	method piedraNecesaria()
+	method energiaRequerida()
+	method construir()
+}
 
-object mesa{
-	
+object mesa inherits ObjetoConstruible{
 	var property image = "mesaEnGris.png"
-	const property position = game.at(7,11)
+
+	override method position(){
+		return game.at(7,11)	
+	}
 	
-	method fuisteConstruido(){
+	override method fuisteConstruido(){
 		return image == "mesa.png"
 	}
 	
-	method maderaNecesaria(){
-		//se necesitan 5 unidades de madera para construir la mesa
+	override method maderaNecesaria(){
 		return 5
 	}
-	method metalNecesario(){
-		//Se necesitan 2 unidades de metal para consturir la mesa
+	override method metalNecesario(){
 		return 2
 	}
-	method piedraNecesaria(){
+	override method piedraNecesaria(){
 		return 0
 	}
 	
-	method energiaRequerida(){
+	override method energiaRequerida(){
 		return 20
 	}
 	
-	method construir(){
+	override method construir(){
 		image = "mesa.png"
 	}
 }
 
-object silla{
+object silla inherits ObjetoConstruible{
 	var property image = "silla_gris.png"
-	const property position = game.at(8,11)
+	 
+	override method position(){ 
+		return game.at(8,11)
+	}
 	
-	method fuisteConstruido(){
+	override method fuisteConstruido(){
 		return image == "silla.png"
 	}
-	method maderaNecesaria(){
-		//se necesitan 4 unidades de madera para construir la mesa
+	override method maderaNecesaria(){
 		return 4
 	}
-	method metalNecesario(){
-		//Se necesitan 3 unidades de metal para consturir la mesa
+	override method metalNecesario(){
 		return 3
 	}
-	method piedraNecesaria(){
+	override method piedraNecesaria(){
 		return 0
 	}
 	
-	method energiaRequerida(){
+	override method energiaRequerida(){
 		return 50
 	}
 
-	method construir(){
+	override method construir(){
 		image = "silla.png"
 	}
 }
 
 
-object martillo{
+object martillo inherits ObjetoConstruible{
 	var property image = "martillo_gris.png"
-	const property position = game.at(9,11)
 	
-	method fuisteConstruido(){
+	override method position(){
+		return game.at(9,11)
+	}
+	override method fuisteConstruido(){
 		return image == "martillo.png"
 	}
-	method maderaNecesaria(){
-		//se necesitan 5 unidades de madera para construir la mesa
+	override method maderaNecesaria(){
 		return 3
 	}
-	method metalNecesario(){
-		//Se necesitan 2 unidades de metal para consturir la mesa
+	override method metalNecesario(){
 		return 3
 	}
-	method piedraNecesaria(){
+	override method piedraNecesaria(){
 		return 3
 	}
-	
-	method energiaRequerida(){
+	override method energiaRequerida(){
 		return 80
 	}
-
-	method construir(){
+	override method construir(){
 		image = "martillo.png"
 	}
 }
 
 
-object gestorDeObjetosConstruidos{
-	var property nivelActual = primerNivel // ver tema de responsabilidad , le corresponde?
+object gestorDeObjetivos{
+	var property nivelActual = primerNivel
 	const inventarioDeObjetosConstruidos = #{}
 	
-	method aniadirObjetoAlInventario(unObjeto){
+	method seContruyeElObjeto(unObjeto){
 		unObjeto.construir()
 		inventarioDeObjetosConstruidos.add(unObjeto)
 		self.verificarSiSeGano()

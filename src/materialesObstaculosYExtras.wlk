@@ -207,7 +207,7 @@ object gestorDeMaterialesAdquiridos{
 	method construir(unObjeto){
 		self.validarSiElObjetoYaFueConstruido(unObjeto)
 		self.gastarMaterialesNecesariosPara(unObjeto)
-		gestorDeObjetosConstruidos.aniadirObjetoAlInventario(unObjeto)
+		gestorDeObjetivos.seContruyeElObjeto(unObjeto)
 	}
 	method hayEspacioParaMas(unMaterial){
 		return self.cantidadDe(unMaterial) != self.cantidadMaximaDeUnidadesPorMaterial()
