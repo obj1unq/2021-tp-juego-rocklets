@@ -18,7 +18,7 @@ class Material{
 		gestorDeMaterialesAdquiridos.recoger(self)
 	}
 	method ubicacarEnInventario(){
-		position = randomizer.emptyPositionInColumn(tipo.columnaEnElInventario())
+		position = randomizer.posicionVaciaEnInventarioDe(tipo)
 	}
 }
 
