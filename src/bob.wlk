@@ -32,7 +32,7 @@ object bob {
 	
 	method validarQueEstaVivo(){
 		if(self.estaMuerto()){
-			config.configurarPerder()		
+			game.schedule(1000, {fondoYSonidoPerdedor.finDeJuego()})	
 		}
 	}
 

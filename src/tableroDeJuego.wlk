@@ -135,9 +135,6 @@ object config {
 		game.onTick(100, "GravedadLadrillo",{gestorDeLadrillos.avanzar()})
 	}
 	
-	method configurarPerder(){
-		game.onTick(1000, "Morir", {fondoYSonidoPerdedor.finDeJuego()})
-	}
 }
 
 
